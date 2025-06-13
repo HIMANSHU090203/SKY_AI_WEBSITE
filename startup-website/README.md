@@ -1,102 +1,85 @@
-# SKY AI Advanced Research Website
+SKY AI Advanced Research Website
+A modern, full-stack web application for SKY AI Advanced Research LLP, featuring a dynamic frontend and integrated backend logic using Next.js API routes and MongoDB Atlas. This project is designed for scalability, maintainability, and a beautiful user experience, optimized for deployment on Vercel.
 
-A modern, full-stack web application for SKY AI Advanced Research LLP, featuring a dynamic frontend (Next.js/React) and a robust backend (Node.js/Express/MongoDB). This monorepo is designed for scalability, maintainability, and a beautiful user experience.
+Project Structure
+frontend/
+├── src/
+│   ├── app/         # Next.js app directory (pages/routes, API)
+│   │   ├── api/     # Next.js API routes (auth, contact, etc.)
+│   │   └── ...
+│   ├── components/  # Reusable UI and background components
+│   ├── lib/         # API utilities and helpers
+│
+├── public/          # Static assets
+├── next.config.ts   # Next.js config (rewrites, etc.)
+├── package.json     # Dependencies and scripts
 
----
 
-## Monorepo Structure
+Quick Start
+Prerequisites
 
-```
-startup-website/
-├── frontend/   # Next.js 15 (React 19) app
-├── backend/    # Node.js + Express + MongoDB API
-```
+Node.js (v18+ recommended)
+npm or yarn
+MongoDB Atlas account
 
----
-
-## Quick Start
-
-### Prerequisites
-- Node.js (v18+ recommended)
-- npm or yarn
-- MongoDB (local or Atlas)
-
-### 1. Clone the Repository
-```bash
+1. Clone the Repository
 git clone <repo-url>
-cd startup-website
-```
+cd frontend
 
-### 2. Setup Environment Variables
-- Copy `.env.example` to `.env` in `backend/` and fill in MongoDB URI, JWT secret, etc.
-- (Optional) Set up `.env.local` in `frontend/` for custom frontend variables.
+2. Setup Environment Variables
 
-### 3. Install Dependencies
-```bash
-cd backend && npm install
-cd ../frontend && npm install
-```
+Create .env.local in frontend/ and add:MONGODB_URI=your-mongodb-atlas-uri
+JWT_SECRET=your-jwt-secret
 
-### 4. Start Development Servers
-- **Backend:**
-  ```bash
-  cd backend
-  npm run dev
-  # or: npm start
-  ```
-- **Frontend:**
-  ```bash
-  cd frontend
-  npm run dev
-  ```
 
-- The frontend runs on [http://localhost:3000](http://localhost:3000)
-- The backend runs on [http://localhost:5000](http://localhost:5000)
+Get your MongoDB Atlas URI from https://cloud.mongodb.com
+Use a strong random string for JWT_SECRET
 
----
+3. Install Dependencies
+npm install
 
-## Environment Variables
+4. Start Development Server
+npm run dev
 
-### Backend (`backend/.env`)
-- `MONGODB_URI` - MongoDB connection string
-- `JWT_SECRET` - Secret for JWT authentication
-- (Optional) Other variables as needed
 
-### Frontend (`frontend/.env.local`)
-- (Optional) `NEXT_PUBLIC_API_BASE_URL` for custom API endpoints
+The app runs on http://localhost:3000
 
----
 
-## Key Features
-- **Modern UI:** Responsive, animated, and visually appealing design
-- **Contact Form:** Stores messages in MongoDB (no email sending)
-- **Admin Panel:** Secure login, view contact messages
-- **Blog, Careers, About Us:** Informational and interactive pages
-- **3D/Particle Backgrounds:** Custom backgrounds for visual engagement
-- **API Proxy:** Next.js rewrites for seamless API calls in development
+Environment Variables
+Frontend (frontend/.env.local)
 
----
+MONGODB_URI - MongoDB Atlas connection string
+JWT_SECRET - Secret for JWT authentication
+(Optional) NEXT_PUBLIC_API_BASE_URL for custom API endpoints
 
-## Technologies Used
-- **Frontend:** Next.js 15, React 19, Tailwind CSS, TypeScript, Lucide Icons, Three.js, p5.js
-- **Backend:** Node.js, Express, MongoDB, Mongoose, JWT Auth
-- **Other:** ESLint, Prettier, Dynamic Imports, Modern React Patterns
 
----
+Key Features
 
-## How to Contribute
-1. Fork the repo and create your branch: `git checkout -b feature/your-feature`
-2. Commit your changes: `git commit -am 'Add new feature'`
-3. Push to the branch: `git push origin feature/your-feature`
-4. Open a Pull Request
+Modern UI: Responsive, animated, and visually appealing design
+Contact Form: Stores messages in MongoDB Atlas (no email sending)
+Admin Panel: Secure login, view contact messages
+Blog, Careers, About Us: Informational and interactive pages
+3D/Particle Backgrounds: Custom backgrounds for visual engagement
+Unified API: All backend logic handled in Next.js API routes
 
----
 
-## Contact
-- Email: info@sky-ai.in
-- Website: https://sky-ai.in
+Technologies Used
 
----
+Frontend & API: Next.js 15, React 19, Tailwind CSS, TypeScript, Lucide Icons, Three.js, p5.js, Mongoose, JWT
+Database: MongoDB Atlas
+Other: ESLint, Prettier, Dynamic Imports, Modern React Patterns
 
-## License
-This project is licensed under the MIT License. 
+
+How to Contribute
+
+Fork the repo and create your branch: git checkout -b feature/your-feature
+Commit your changes: git commit -am 'Add new feature'
+Push to the branch: git push origin feature/your-feature
+Open a Pull Request
+
+
+Contact
+Email: info@sky-ai.in
+
+
+
