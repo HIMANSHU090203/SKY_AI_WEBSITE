@@ -1,14 +1,10 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  async rewrites() {
-    return [
-      {
-        source: "/api/contact",
-        destination: "http://localhost:5000/api/contact",
-      },
-    ];
-  },
+  // Removed rewrites since API routes are in the same Next.js app
+  experimental: {
+    serverComponentsExternalPackages: ['mongoose']
+  }
 };
 
 export default nextConfig;
