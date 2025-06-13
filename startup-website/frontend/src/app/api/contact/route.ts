@@ -1,35 +1,56 @@
-export const runtime = "nodejs";
-import { NextRequest, NextResponse } from 'next/server';
-import nodemailer from 'nodemailer';
+import { NextResponse } from 'next/server';
+import dbConnect from '../_lib/db';
+import Contact from '@/lib/models/Contact';
+import jwt from 'jsonwebtoken';
+import User from '@/lib/models/User';
 
-export async function POST(req: NextRequest) {
+// POST /api/contact
+export async function POST(req: Request) {
   try {
-    const { name, email, subject, message, company } = await req.json();
+    const { name, email, message } = await req.json();
 
-    // Configure transporter
-    const transporter = nodemailer.createTransport({
-      service: 'gmail', // or your email provider
-      auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
-      },
-    });
+    // Validate input
+    if (!name || !email || !message) {
+      return NextResponse.json({ error: 'All fields are required' }, { status: 400 });
+    }
 
-    // Email content
-    const mailOptions = {
-      from: process.env.EMAIL_USER,
-      to: process.env.CONTACT_RECEIVER || process.env.EMAIL_USER,
-      subject: `Contact Form: ${subject}`,
-      text: `Name: ${name}\nEmail: ${email}\nCompany: ${company}\n\nMessage:\n${message}`,
-      replyTo: email,
-    };
+    // Connect to DB
+    await dbConnect();
 
-    // Send email
-    await transporter.sendMail(mailOptions);
+    // Save contact
+    const contact = await Contact.create({ name, email, message });
 
-    return NextResponse.json({ success: true });
-  } catch (error) {
-    console.error('Contact API error:', error);
-    return NextResponse.json({ success: false, error: 'Failed to send message.' }, { status: 500 });
+    return NextResponse.json({ success: true, contact }, { status: 201 });
+  } catch (error: any) {
+    console.error('❌ POST /api/contact error:', error.message);
+    return NextResponse.json({ error: error.message || 'Internal Server Error' }, { status: 500 });
   }
-} 
+}
+
+// GET /api/contact
+export async function GET(req: Request) {
+  try {
+    const auth = req.headers.get('authorization')?.split(' ')[1];
+    if (!auth) {
+      return NextResponse.json({ message: 'No token provided' }, { status: 401 });
+    }
+
+    // Decode JWT
+    const decoded: any = jwt.verify(auth, process.env.JWT_SECRET!);
+
+    await dbConnect();
+
+    // Check admin
+    const user = await User.findById(decoded.id);
+    if (!user?.isAdmin) {
+      return NextResponse.json({ message: 'Unauthorized' }, { status: 403 });
+    }
+
+    // Fetch messages
+    const msgs = await Contact.find().sort({ createdAt: -1 });
+    return NextResponse.json({ success: true, messages: msgs });
+  } catch (error: any) {
+    console.error('❌ GET /api/contact error:', error.message);
+    return NextResponse.json({ error: error.message || 'Internal Server Error' }, { status: 500 });
+  }
+}

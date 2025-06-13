@@ -21,7 +21,13 @@ export const authAPI = {
 export const contactAPI = {
   create: (contactData: { name: string; email: string; message: string }) =>
     api.post('/contact', contactData),
-  getAll: () => api.get('/contact'),
+    
+  getAll: (token: string) =>
+    api.get('/contact', {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    }),
 };
 
 export default api;

@@ -1,36 +1,87 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# SKY AI Frontend
 
-## Getting Started
+This is the unified frontend and backend for the SKY AI Advanced Research website, built with Next.js 15, React 19, and Tailwind CSS. All API logic is now handled via Next.js API routes, and MongoDB Atlas is used for cloud database storage. The app is ready for seamless deployment to Vercel.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+## Project Structure
+
+```
+frontend/
+├── src/
+│   ├── app/         # Next.js app directory (pages/routes, API)
+│   │   ├── api/     # Next.js API routes (auth, contact, etc.)
+│   │   └── ...
+│   ├── components/  # Reusable UI and background components
+│   ├── lib/         # API utilities and helpers
+│
+├── public/          # Static assets
+├── next.config.ts   # Next.js config (rewrites, etc.)
+├── package.json     # Dependencies and scripts
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## How to Run Locally
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm install
+npm run dev
+# Visit http://localhost:3000
+```
 
-## Learn More
+---
 
-To learn more about Next.js, take a look at the following resources:
+## Environment Variables
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Create a `.env.local` file in the root of `frontend/` with:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+MONGODB_URI=your-mongodb-atlas-uri
+JWT_SECRET=your-jwt-secret
+```
 
-## Deploy on Vercel
+- Get your MongoDB Atlas URI from https://cloud.mongodb.com
+- Use a strong random string for `JWT_SECRET`
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## How to Deploy to Vercel
+1. Push your code to GitHub.
+2. Go to https://vercel.com and import your repo.
+3. Set the environment variables (`MONGODB_URI`, `JWT_SECRET`) in the Vercel dashboard.
+4. Deploy!
+
+---
+
+## Key Features
+- **Modern UI:** Responsive, animated, and visually appealing design
+- **Contact Form:** Stores messages in MongoDB Atlas (no email sending)
+- **Admin Panel:** Secure login, view contact messages
+- **Blog, Careers, About Us:** Informational and interactive pages
+- **3D/Particle Backgrounds:** Custom backgrounds for visual engagement
+- **Unified API:** All backend logic handled in Next.js API routes
+
+---
+
+## Technologies Used
+- **Frontend & API:** Next.js 15, React 19, Tailwind CSS, TypeScript, Lucide Icons, Three.js, p5.js, Mongoose, JWT
+- **Database:** MongoDB Atlas
+- **Other:** ESLint, Prettier, Dynamic Imports, Modern React Patterns
+
+---
+
+## Contribution Guide
+1. Fork and branch: `git checkout -b feature/your-feature`
+2. Make changes and commit: `git commit -am 'Describe your change'`
+3. Push and open a PR
+
+---
+
+## Contact
+- Email: info@sky-ai.in
+
+---
+
+## License
+MIT

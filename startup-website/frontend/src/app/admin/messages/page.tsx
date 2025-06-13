@@ -1,4 +1,5 @@
 "use client";
+
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 
@@ -13,18 +14,26 @@ interface ContactMessage {
 export default function AdminMessagesPage() {
   const [messages, setMessages] = useState<ContactMessage[]>([]);
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(true);
   const router = useRouter();
 
   useEffect(() => {
-    const token = localStorage.getItem("adminToken");
+    const token =
+      typeof window !== "undefined" ? localStorage.getItem("adminToken") : null;
     if (!token) {
       router.push("/admin/login");
       return;
     }
-    fetch("/api/contact", {
-      headers: { Authorization: `Bearer ${token}` },
-    })
-      .then(async (res) => {
+
+    const fetchMessages = async () => {
+      try {
+        const res = await fetch(
+          `${process.env.NEXT_PUBLIC_API_BASE_URL || ""}/api/contact`,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
+
         if (!res.ok) {
           if (res.status === 401 || res.status === 403) {
             localStorage.removeItem("adminToken");
@@ -33,38 +42,76 @@ export default function AdminMessagesPage() {
           const data = await res.json();
           throw new Error(data.message || "Failed to fetch messages");
         }
-        return res.json();
-      })
-      .then(setMessages)
-      .catch((err) => setError(err.message));
+
+        const data = await res.json();
+        setMessages(data.messages); // ✅ Fixed: use `data.messages`
+      } catch (err: any) {
+        setError(err.message);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchMessages();
   }, [router]);
 
+  const handleLogout = () => {
+    localStorage.removeItem("adminToken");
+    router.push("/admin/login");
+  };
+
   return (
-    <div className="min-h-screen bg-black text-white p-8">
-      <h2 className="text-3xl font-bold mb-6">Contact Messages</h2>
-      {error && <div className="mb-4 text-red-500">{error}</div>}
-      <div className="overflow-x-auto">
-        <table className="min-w-full bg-white text-black rounded">
-          <thead>
-            <tr>
-              <th className="py-2 px-4">Name</th>
-              <th className="py-2 px-4">Email</th>
-              <th className="py-2 px-4">Message</th>
-              <th className="py-2 px-4">Date</th>
-            </tr>
-          </thead>
-          <tbody>
-            {messages.map((msg) => (
-              <tr key={msg._id} className="border-t">
-                <td className="py-2 px-4">{msg.name}</td>
-                <td className="py-2 px-4">{msg.email}</td>
-                <td className="py-2 px-4">{msg.message}</td>
-                <td className="py-2 px-4">{new Date(msg.createdAt).toLocaleString()}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+    <div className="min-h-screen bg-[#0f172a] text-white px-6 py-10">
+      <div className="max-w-6xl mx-auto">
+        <div className="flex items-center justify-between mb-8">
+          <h2 className="text-4xl font-semibold border-b border-slate-700 pb-4">
+            📩 Admin Contact Messages
+          </h2>
+          <button
+            onClick={handleLogout}
+            className="bg-red-600 hover:bg-red-700 text-white font-medium px-4 py-2 rounded transition hover:cursor-pointer"
+          >
+            Logout
+          </button>
+        </div>
+
+        {loading && <p className="text-slate-300">Loading messages...</p>}
+        {error && <p className="text-red-500">{error}</p>}
+
+        {!loading && !error && messages.length === 0 && (
+          <p className="text-slate-400">No messages found.</p>
+        )}
+
+        {!loading && !error && messages.length > 0 && (
+          <div className="overflow-x-auto rounded-lg shadow-lg">
+            <table className="min-w-full table-auto border-collapse bg-slate-800">
+              <thead>
+                <tr className="bg-slate-700 text-slate-200 uppercase text-sm">
+                  <th className="py-3 px-4 text-left">Name</th>
+                  <th className="py-3 px-4 text-left">Email</th>
+                  <th className="py-3 px-4 text-left">Message</th>
+                  <th className="py-3 px-4 text-left">Date</th>
+                </tr>
+              </thead>
+              <tbody>
+                {messages.map((msg, idx) => (
+                  <tr
+                    key={msg._id}
+                    className={idx % 2 === 0 ? "bg-slate-900" : "bg-slate-800"}
+                  >
+                    <td className="py-3 px-4">{msg.name}</td>
+                    <td className="py-3 px-4">{msg.email}</td>
+                    <td className="py-3 px-4 max-w-sm truncate">{msg.message}</td>
+                    <td className="py-3 px-4">
+                      {new Date(msg.createdAt).toLocaleString()}
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+        )}
       </div>
     </div>
   );
-} 
+}
