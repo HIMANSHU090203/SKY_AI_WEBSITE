@@ -1,10 +1,8 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // Removed rewrites since API routes are in the same Next.js app
-  experimental: {
-    serverComponentsExternalPackages: ['mongoose']
-  }
+  // Updated to use the new serverExternalPackages instead of deprecated experimental.serverComponentsExternalPackages
+  serverExternalPackages: ['mongoose']
 };
 
 export default nextConfig;
