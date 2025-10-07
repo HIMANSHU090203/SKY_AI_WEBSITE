@@ -2,7 +2,7 @@
 
 import React from 'react';
 import dynamic from 'next/dynamic';
-import { Sketch } from 'react-p5-wrapper';
+import { Sketch } from '@p5-wrapper/react';
 
 const GalaxyAnimation = ({ numParticles = 300, baseColor = [200, 100] }) => {
   const sketch = (p5) => {

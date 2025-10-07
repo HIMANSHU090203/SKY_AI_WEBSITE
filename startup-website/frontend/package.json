@@ -28,13 +28,12 @@
     "p5": "^2.0.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "react-p5-wrapper": "^4.1.2",
+    "@p5-wrapper/react": "^4.1.2",
     "three": "^0.177.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
     "@tailwindcss/postcss": "^4",
-    "@types/bcryptjs": "^3.0.0",
     "@types/node": "^20.19.0",
     "@types/react": "^19",
     "@types/react-dom": "^19",
