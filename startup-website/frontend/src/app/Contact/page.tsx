@@ -1,36 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import {
-  Mail,
-  Phone,
-  MapPin,
-  Send,
-  MessageSquare,
-  Users,
-  Clock,
-  ArrowRight,
-  CheckCircle,
-  X,
-  Menu,
-  Rocket,
-} from "lucide-react";
+import { motion } from "framer-motion";
+import { Mail, Phone, MapPin, Send, MessageSquare, Users, Clock, ArrowRight, CheckCircle, X, Menu, Rocket, Linkedin, Twitter, Github } from "lucide-react";
 import Link from "next/link";
-import dynamic from "next/dynamic";
-import Image from "next/image";
-import Footer from '../../components/ui/Footer';
-
-// Dynamically import ParticleBackground with SSR disabled
-const ParticleBackground = dynamic(() => import("../../components/ParticleBackground"), {
-  ssr: false,
-  loading: () => <div className="absolute inset-0 bg-neutral-900" />,
-});
-
-// Dynamically import ThreeDBackground with SSR disabled
-const ThreeDBackground = dynamic(() => import("../../components/ThreeDBackground"), {
-  ssr: false,
-  loading: () => <div className="absolute inset-0 bg-black" />,
-});
+import axios from "axios";
+import VideoBackground from "../../components/VideoBackground";
+import AnimatedNavbar from "../../components/AnimatedNavbar";
+import AnimatedFooter from "../../components/AnimatedFooter";
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({
@@ -38,359 +15,362 @@ export default function ContactPage() {
     email: "",
     subject: "",
     message: "",
-    company: "",
   });
-  const [isSubmitted, setIsSubmitted] = useState(false);
-  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [status, setStatus] = useState<"idle" | "loading" | "success" | "error">("idle");
+  const [responseMessage, setResponseMessage] = useState("");
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setStatus("loading");
+    setResponseMessage("");
+
     try {
-      const res = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
-      });
-      const data = await res.json();
-      console.log('API Response:', data);
-      if (res.ok) {
-        setIsSubmitted(true);
-        setFormData({ name: '', email: '', subject: '', message: '', company: '' });
-        setTimeout(() => setIsSubmitted(false), 3000);
-      } else {
-        const data = await res.json();
-        alert(data.error || 'Failed to send message.');
+      const response = await axios.post("/api/contact", formData);
+      if (response.status === 200) {
+        setStatus("success");
+        setResponseMessage("Your message has been sent successfully!");
+        setFormData({ name: "", email: "", subject: "", message: "" });
       }
-    } catch (err) {
-      alert('Failed to send message.');
+    } catch (error: any) {
+      setStatus("error");
+      setResponseMessage(
+        error.response?.data?.message || "Failed to send message. Please try again."
+      );
     }
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
-  };
+  const contactInfo = [
+    {
+      icon: <MapPin className="w-6 h-6" />,
+      title: "Our Office",
+      content: "A-234 Kardhani Scheme Kalwar Road, Jaipur, Rajasthan, 302012, India",
+      color: "from-blue-500 to-cyan-500",
+    },
+    {
+      icon: <Phone className="w-6 h-6" />,
+      title: "Phone",
+      content: "+91 9783982649",
+      color: "from-purple-500 to-pink-500",
+    },
+    {
+      icon: <Mail className="w-6 h-6" />,
+      title: "Email",
+      content: "info@sky-ai.in",
+      color: "from-green-500 to-emerald-500",
+    },
+  ];
 
-  // Navigation links array for DRY usage
-  const navLinks = [
-    { name: "Home", href: "/" },
-    { name: "Blogs", href: "/Blogs" },
-    { name: "About Us", href: "/Aboutus" },
-    { name: "Careers", href: "/Careers" },
-    { name: "Contact", href: "/Contact" },
+  const socialLinks = [
+    {
+      icon: <Linkedin className="w-6 h-6" />,
+      href: "https://www.linkedin.com/company/sky-advanced-research-llp/",
+      label: "LinkedIn",
+      color: "hover:text-blue-400",
+    },
+    {
+      icon: <Twitter className="w-6 h-6" />,
+      href: "https://twitter.com/",
+      label: "Twitter",
+      color: "hover:text-cyan-400",
+    },
+    {
+      icon: <Github className="w-6 h-6" />,
+      href: "https://github.com/",
+      label: "GitHub",
+      color: "hover:text-gray-300",
+    },
   ];
 
   return (
-    <div className="min-h-screen bg-black relative overflow-hidden font-[Poppins,Arial,sans-serif]">
-      {/* Deep gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-br from-black via-black to-white/5 pointer-events-none" />
-
-      {/* Particle background */}
-      <ParticleBackground />
-
+    <div className="min-h-screen relative overflow-hidden font-[Poppins,Arial,sans-serif]">
+      {/* Animated Background */}
+      <VideoBackground />
+      
       {/* Navigation */}
-      <nav className="fixed w-full z-50 bg-black/90 backdrop-blur-xl border-b border-white/10 shadow-2xl shadow-black/60 transition-all duration-500 font-[Poppins,Arial,sans-serif]">
-        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-          <div className="flex items-center justify-between h-20">
-            <div className="flex-shrink-0 flex items-center gap-3">
-              <span className="ml-3 text-base sm:text-lg font-semibold text-white tracking-wide select-none font-[Poppins,Arial,sans-serif] whitespace-nowrap">SKY AI</span>
-            </div>
-            <div className="hidden md:flex items-center space-x-8 justify-end w-full">
-              {navLinks.map((item) => (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  className={`px-5 py-2 rounded-xl font-bold text-base tracking-wide transition-all duration-300 relative group focus:outline-none focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-black text-white hover:bg-transparent hover:shadow-lg`}
-                >
-                  <span className="relative z-10">{item.name}</span>
-                  <span className="absolute left-0 bottom-0 w-full h-0.5 bg-gradient-to-r from-white to-black scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left" />
-                </Link>
-              ))}
-            </div>
-            <div className="md:hidden flex items-center">
-              <button
-                onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="text-white hover:text-black p-2 rounded-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-black transition-colors duration-300 shadow"
-                aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-              >
-                {isMenuOpen ? <X size={30} /> : <Menu size={30} />}
-              </button>
-            </div>
-          </div>
-        </div>
-        {isMenuOpen && (
-          <div className="md:hidden bg-black/95 backdrop-blur-2xl border-t border-white/10 shadow-2xl shadow-black/60 animate-slideDown">
-            <div className="flex flex-col px-6 py-8 space-y-4 items-center">
-              {navLinks.map((item) => (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  onClick={() => setIsMenuOpen(false)}
-                  className={`w-full text-center px-5 py-3 rounded-xl font-bold text-lg transition-all duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-white/80 focus-visible:ring-offset-2 focus-visible:ring-offset-black text-white hover:bg-transparent hover:shadow-lg`}
-                >
-                  {item.name}
-                </Link>
-              ))}
-            </div>
-          </div>
-        )}
-      </nav>
-
+      <AnimatedNavbar />
+      
       {/* Hero Section */}
-      <section className="relative overflow-hidden z-10 pt-32 pb-20">
-        <div className="absolute inset-0 -z-10">
-          <ThreeDBackground />
-        </div>
-        <div className="relative max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-          <div className="max-w-4xl mx-auto text-center">
-            <div className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-black/80 to-white/10 border border-white/10 rounded-full text-white text-sm font-medium mb-8 backdrop-blur-sm shadow-lg shadow-black/20">
-              <MessageSquare className="w-4 h-4 mr-2 text-white" />
-              Get in touch with our team
-            </div>
-
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black bg-gradient-to-r from-white via-gray-200 to-black bg-clip-text text-transparent drop-shadow-2xl tracking-widest uppercase mb-4 select-none leading-tight">
-              SKY AI <br />
-              Advanced Research LLP
+      <section className="relative pt-32 pb-20">
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+          <motion.div
+            className="text-center"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <motion.div
+              className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-blue-500/20 to-purple-500/20 border border-blue-500/30 rounded-full text-blue-400 text-sm font-medium mb-8 backdrop-blur-sm"
+              whileHover={{ scale: 1.05 }}
+              transition={{ type: "spring", stiffness: 300 }}
+            >
+              <MessageSquare className="w-4 h-4 mr-2" />
+              Get in Touch
+            </motion.div>
+            
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">
+              Ready to Transform
+              <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent block">
+                Your Business?
+              </span>
             </h1>
-
-            <p className="text-xl sm:text-2xl text-white mb-12 max-w-3xl mx-auto leading-relaxed font-light">
-              Ready to transform your business with AI? Let's start the conversation.
+            
+            <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed">
+              Let's start the conversation about how AI can revolutionize your business operations.
             </p>
-          </div>
+          </motion.div>
         </div>
       </section>
 
-      {/* Contact Content */}
-      <section className="py-24 relative z-10">
+      {/* Contact Form & Info */}
+      <section className="py-20">
         <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16">
             {/* Contact Form */}
-            <div className="bg-gradient-to-br from-black/80 to-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8 shadow-lg shadow-black/20">
-              <h2 className="text-3xl font-bold text-white mb-6 tracking-tight">
-                Send us a message
-              </h2>
+            <motion.div
+              initial={{ opacity: 0, x: -30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+            >
+              <div className="glassmorphic-card relative p-8 rounded-2xl">
+                <h3 className="text-2xl font-bold text-white mb-6">Send us a message</h3>
+                
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                    <motion.div
+                      whileFocus={{ scale: 1.02 }}
+                      transition={{ type: "spring", stiffness: 300 }}
+                    >
+                      <label htmlFor="name" className="block text-sm font-medium text-gray-300 mb-2">
+                        Name
+                      </label>
+                      <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        value={formData.name}
+                        onChange={handleChange}
+                        required
+                        className="w-full px-4 py-3 bg-gray-800/50 border border-gray-600/50 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
+                        placeholder="Your name"
+                      />
+                    </motion.div>
+                    
+                    <motion.div
+                      whileFocus={{ scale: 1.02 }}
+                      transition={{ type: "spring", stiffness: 300 }}
+                    >
+                      <label htmlFor="email" className="block text-sm font-medium text-gray-300 mb-2">
+                        Email
+                      </label>
+                      <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        value={formData.email}
+                        onChange={handleChange}
+                        required
+                        className="w-full px-4 py-3 bg-gray-800/50 border border-gray-600/50 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
+                        placeholder="your@email.com"
+                      />
+                    </motion.div>
+                  </div>
 
-              {isSubmitted && (
-                <div className="mb-6 p-4 bg-gradient-to-r from-black/80 to-white/10 border border-white/10 rounded-xl flex items-center">
-                  <CheckCircle className="w-5 h-5 text-white mr-3" />
-                  <span className="text-white">Message sent successfully! We'll get back to you soon.</span>
-                </div>
-              )}
-
-              <form onSubmit={handleSubmit} className="space-y-6">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                  <div>
-                    <label className="block text-white text-sm font-medium mb-2">
-                      Full Name *
+                  <motion.div
+                    whileFocus={{ scale: 1.02 }}
+                    transition={{ type: "spring", stiffness: 300 }}
+                  >
+                    <label htmlFor="subject" className="block text-sm font-medium text-gray-300 mb-2">
+                      Subject
                     </label>
                     <input
                       type="text"
-                      name="name"
-                      value={formData.name}
+                      id="subject"
+                      name="subject"
+                      value={formData.subject}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 py-3 bg-black/80 border border-white/10 rounded-xl text-white placeholder-white/40 focus:outline-none focus:border-white/40 focus:ring-2 focus:ring-white/20 transition-all duration-300"
-                      placeholder="Your full name"
+                      className="w-full px-4 py-3 bg-gray-800/50 border border-gray-600/50 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
+                      placeholder="What's this about?"
                     />
-                  </div>
-                  <div>
-                    <label className="block text-white text-sm font-medium mb-2">
-                      Company
+                  </motion.div>
+
+                  <motion.div
+                    whileFocus={{ scale: 1.02 }}
+                    transition={{ type: "spring", stiffness: 300 }}
+                  >
+                    <label htmlFor="message" className="block text-sm font-medium text-gray-300 mb-2">
+                      Message
                     </label>
-                    <input
-                      type="text"
-                      name="company"
-                      value={formData.company}
+                    <textarea
+                      id="message"
+                      name="message"
+                      value={formData.message}
                       onChange={handleChange}
-                      className="w-full px-4 py-3 bg-black/80 border border-white/10 rounded-xl text-white placeholder-white/40 focus:outline-none focus:border-white/40 focus:ring-2 focus:ring-white/20 transition-all duration-300"
-                      placeholder="Your company"
-                    />
-                  </div>
-                </div>
+                      rows={5}
+                      required
+                      className="w-full px-4 py-3 bg-gray-800/50 border border-gray-600/50 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 resize-none"
+                      placeholder="Tell us about your project..."
+                    ></textarea>
+                  </motion.div>
 
-                <div>
-                  <label className="block text-white text-sm font-medium mb-2">
-                    Email Address *
-                  </label>
-                  <input
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-4 py-3 bg-black/80 border border-white/10 rounded-xl text-white placeholder-white/40 focus:outline-none focus:border-white/40 focus:ring-2 focus:ring-white/20 transition-all duration-300"
-                    placeholder="your.email@company.com"
-                  />
-                </div>
+                  <motion.button
+                    type="submit"
+                    className="w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white px-6 py-4 rounded-lg font-semibold hover:from-blue-600 hover:to-purple-700 transition-all duration-300 shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 flex items-center justify-center"
+                    whileHover={{ scale: 1.02, y: -2 }}
+                    whileTap={{ scale: 0.98 }}
+                    disabled={status === "loading"}
+                  >
+                    {status === "loading" ? (
+                      <>
+                        <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin mr-2" />
+                        Sending...
+                      </>
+                    ) : (
+                      <>
+                        <Send className="w-5 h-5 mr-2" />
+                        Send Message
+                      </>
+                    )}
+                  </motion.button>
 
-                <div>
-                  <label className="block text-white text-sm font-medium mb-2">
-                    Subject *
-                  </label>
-                  <input
-                    type="text"
-                    name="subject"
-                    value={formData.subject}
-                    onChange={handleChange}
-                    required
-                    className="w-full px-4 py-3 bg-black/80 border border-white/10 rounded-xl text-white placeholder-white/40 focus:outline-none focus:border-white/40 focus:ring-2 focus:ring-white/20 transition-all duration-300"
-                    placeholder="What's this about?"
-                  />
-                </div>
+                  {responseMessage && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className={`p-4 rounded-lg flex items-center ${
+                        status === "success" 
+                          ? "bg-green-500/20 border border-green-500/30 text-green-400" 
+                          : "bg-red-500/20 border border-red-500/30 text-red-400"
+                      }`}
+                    >
+                      <CheckCircle className="w-5 h-5 mr-2" />
+                      {responseMessage}
+                    </motion.div>
+                  )}
+                </form>
+              </div>
+            </motion.div>
 
-                <div>
-                  <label className="block text-white text-sm font-medium mb-2">
-                    Message *
-                  </label>
-                  <textarea
-                    name="message"
-                    value={formData.message}
-                    onChange={handleChange}
-                    required
-                    rows={6}
-                    className="w-full px-4 py-3 bg-black/80 border border-white/10 rounded-xl text-white placeholder-white/40 focus:outline-none focus:border-white/40 focus:ring-2 focus:ring-white/20 transition-all duration-300 resize-none"
-                    placeholder="Tell us about your project, questions, or how we can help..."
-                  />
-                </div>
-
-                <button
-                  type="submit"
-                  className="group w-full bg-gradient-to-r from-gray-600 to-gray-700 text-white px-8 py-4 rounded-xl text-lg font-medium transition-all duration-300 shadow-lg shadow-gray-500/30 border border-gray-500/50 hover:from-gray-700 hover:to-gray-800 hover:scale-105 transform flex items-center justify-center"
-                  aria-label="Send message"
-                >
-                  Send Message
-                  <Send className="ml-2 w-5 h-5 transition-transform group-hover:translate-x-1" />
-                </button>
-              </form>
-            </div>
-
-            {/* Contact Information */}
-            <div className="space-y-8">
-              <div className="bg-gradient-to-br from-black/80 to-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-8 shadow-lg shadow-black/20">
-                <h3 className="text-2xl font-bold text-white mb-6 tracking-tight">
-                  Get in touch
-                </h3>
-
-                <div className="space-y-6">
-                  <div className="flex items-start">
-                    <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-r from-black/80 to-white/10 rounded-xl flex items-center justify-center mr-4">
-                      <Mail className="w-6 h-6 text-white" />
+            {/* Contact Info */}
+            <motion.div
+              className="space-y-8"
+              initial={{ opacity: 0, x: 30 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.8 }}
+              viewport={{ once: true }}
+            >
+              {/* Contact Details */}
+              <div className="space-y-6">
+                {contactInfo.map((info, index) => (
+                  <motion.div
+                    key={index}
+                    className="glassmorphic-card group relative p-8 rounded-2xl hover:border-[var(--color-accent-cyan)]/30 transition-all duration-300 h-full"
+                    whileHover={{ y: -10, scale: 1.02 }}
+                    transition={{ type: "spring", stiffness: 300 }}
+                  >
+                    <div className="flex items-start">
+                      <div className={`p-3 rounded-lg bg-gradient-to-r ${info.color} mr-4 group-hover:scale-110 transition-transform duration-300`}>
+                        {info.icon}
+                      </div>
+                      <div>
+                        <h4 className="text-lg font-semibold text-white mb-2">{info.title}</h4>
+                        <p className="text-gray-300">{info.content}</p>
+                      </div>
                     </div>
-                    <div>
-                      <h4 className="text-white font-semibold mb-1">Email</h4>
-                      <a href="mailto:contact@skyai.com" className="text-white hover:text-black transition-colors">
-                        info@sky-ai.in
-                      </a>
-                      <p className="text-white/60 text-sm">We'll respond within 24 hours</p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start">
-                    <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-r from-black/80 to-white/10 rounded-xl flex items-center justify-center mr-4">
-                      <Phone className="w-6 h-6 text-white" />
-                    </div>
-                    <div>
-                      <h4 className="text-white font-semibold mb-1">Phone</h4>
-                      <p className="text-white">+91 9783982649</p>
-                      <p className="text-white/60 text-sm">Mon-Fri, 9AM-6PM IST</p>
-                    </div>
-                  </div>
-
-                  <div className="flex items-start">
-                    <div className="flex-shrink-0 w-12 h-12 bg-gradient-to-r from-black/80 to-white/10 rounded-xl flex items-center justify-center mr-4">
-                      <MapPin className="w-6 h-6 text-white" />
-                    </div>
-                    <div>
-                      <h4 className="text-white font-semibold mb-1">Office</h4>
-                      <p className="text-white">Jaipur,Rajasthan,302012 </p>
-                      <p className="text-white"> India</p>
-                    </div>
-                  </div>
-                </div>
+                  </motion.div>
+                ))}
               </div>
 
-              {/* Quick Links */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
-                <Link
-                  href="mailto:info@sky-ai.in"
-                  className="bg-gradient-to-br from-black/80 to-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 shadow-lg shadow-black/20 hover:scale-105 transition-transform duration-300 group"
-                >
-                  <Users className="w-8 h-8 text-white mb-4 group-hover:text-black transition-colors" />
-                  <h4 className="text-white font-semibold mb-2">Team</h4>
-                  <p className="text-white text-sm mb-3">Ready to discuss enterprise solutions</p>
-                  <div className="flex items-center text-white text-sm font-medium">
-                    Contact Team <ArrowRight className="ml-1 w-4 h-4" />
-                  </div>
-                </Link>
+              {/* Social Links */}
+              <motion.div
+                className="glassmorphic-card p-8 rounded-2xl"
+                whileHover={{ y: -10, scale: 1.02 }}
+                transition={{ type: "spring", stiffness: 300 }}
+              >
+                <h4 className="text-lg font-semibold text-white mb-4">Follow Us</h4>
+                <div className="flex space-x-4">
+                  {socialLinks.map((social, index) => (
+                    <motion.a
+                      key={index}
+                      href={social.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`p-3 bg-gray-800/50 rounded-lg text-gray-400 ${social.color} transition-all duration-300`}
+                      whileHover={{ scale: 1.1, y: -2 }}
+                      whileTap={{ scale: 0.95 }}
+                      aria-label={social.label}
+                    >
+                      {social.icon}
+                    </motion.a>
+                  ))}
+                </div>
+              </motion.div>
 
-                <Link
-                  href="mailto:info@sky-ai.in"
-                  className="bg-gradient-to-br from-black/80 to-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 shadow-lg shadow-black/20 hover:scale-105 transition-transform duration-300 group"
+              {/* CTA */}
+              <motion.div
+                className="glassmorphic-card p-8 rounded-2xl border border-[var(--color-accent-cyan)]/20"
+                whileHover={{ y: -10, scale: 1.02 }}
+                transition={{ type: "spring", stiffness: 300 }}
+              >
+                <h4 className="text-lg font-semibold text-white mb-3">Ready to get started?</h4>
+                <p className="text-gray-300 mb-4">
+                  Let's discuss how AI can transform your business operations.
+                </p>
+                <motion.button
+                  className="inline-flex items-center text-blue-400 hover:text-blue-300 font-medium"
+                  whileHover={{ x: 5 }}
+                  transition={{ type: "spring", stiffness: 300 }}
                 >
-                  <Clock className="w-8 h-8 text-white mb-4 group-hover:text-black transition-colors" />
-                  <h4 className="text-white font-semibold mb-2">Support</h4>
-                  <p className="text-white text-sm mb-3">Get help with technical questions</p>
-                  <div className="flex items-center text-white text-sm font-medium">
-                    Get Support <ArrowRight className="ml-1 w-4 h-4" />
-                  </div>
-                </Link>
-              </div>
-            </div>
+                  Schedule a call
+                  <ArrowRight className="w-4 h-4 ml-2" />
+                </motion.button>
+              </motion.div>
+            </motion.div>
           </div>
         </div>
       </section>
 
-      {/* FAQ Section */}
-<section className="py-24 bg-gradient-to-b from-black/90 to-white/5 backdrop-blur-sm relative z-10">
-  <div className="max-w-4xl mx-auto px-6 sm:px-8 lg:px-12">
-    <div className="text-center mb-16">
-      <h2 className="text-4xl sm:text-5xl font-bold text-white mb-6 tracking-tight">
-        Frequently Asked Questions
-      </h2>
-      <p className="text-xl text-white font-light">
-        Answers to common questions about working with our early-stage team at SKY AI.
-      </p>
-    </div>
+      {/* Map Section */}
+      <section className="py-20">
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+          <motion.div
+            className="text-center mb-12"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <h2 className="text-3xl font-bold text-white mb-4">
+              Find Us <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">Here</span>
+            </h2>
+            <p className="text-gray-300">Visit our office in Jaipur, India</p>
+          </motion.div>
 
-    <div className="space-y-6">
-      {[
-        {
-          question: "What is SKY AI building?",
-          answer:
-            "We're focused on building practical AI tools that solve real-world problems for businesses and individuals. The journey is still in its early days — and that's the exciting part.",
-        },
-        {
-          question: "Do I need experience with AI to join?",
-          answer:
-            "Not necessarily. We're more interested in curiosity, problem-solving ability, and a willingness to learn than in prior AI experience.",
-        },
-        {
-          question: "Is this a remote role?",
-          answer:
-            "Currently, we’re working closely together in-office to move fast and stay aligned. Remote options may come later as we grow.",
-        },
-        {
-          question: "What can I expect from the culture?",
-          answer:
-            "It’s fast-paced, hands-on, and full of learning. Everyone contributes directly to the product and has a real impact from day one.",
-        },
-      ].map((faq, index) => (
-        <div
-          key={index}
-          className="bg-gradient-to-br from-black/80 to-white/5 backdrop-blur-sm border border-white/10 rounded-2xl p-6 shadow-lg shadow-black/20"
-        >
-          <h3 className="text-white font-semibold mb-3 text-lg">{faq.question}</h3>
-          <p className="text-white leading-relaxed">{faq.answer}</p>
+          <motion.div
+            className="glassmorphic-card relative rounded-2xl overflow-hidden"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <div className="aspect-video bg-gradient-to-br from-blue-500/20 to-purple-500/20 flex items-center justify-center">
+              <div className="text-center">
+                <MapPin className="w-16 h-16 text-blue-400/50 mx-auto mb-4" />
+                <h3 className="text-xl font-semibold text-white mb-2">A-234 Kardhani Scheme</h3>
+                <p className="text-gray-300">Kalwar Road, Jaipur, Rajasthan, 302012, India</p>
+              </div>
+            </div>
+          </motion.div>
         </div>
-      ))}
-    </div>
-  </div>
-</section>
+      </section>
 
-
-      <Footer />
+      {/* Footer */}
+      <AnimatedFooter />
     </div>
   );
 }

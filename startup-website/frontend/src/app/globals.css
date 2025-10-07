@@ -7,6 +7,13 @@
   --font-geist-mono: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
   --accent: #00eaff;
   --accent-hover: #33f0ff;
+  
+  /* Enhanced 5-Color Palette */
+  --color-primary-bg: #0B1426;
+  --color-accent-cyan: #00F5FF;
+  --color-accent-purple: #6366F1;
+  --color-text-primary: #F8FAFC;
+  --color-accent-gold: #F59E0B;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -27,16 +34,140 @@ body {
 /* If you want to use these as Tailwind CSS custom properties, 
    you can define them in your tailwind.config.js instead */
 
-/* Button Styles */
-.btn-primary {
-  @apply bg-gradient-to-r from-black via-gray-900 to-white/10 text-white font-bold px-8 py-3 rounded-xl shadow-lg hover:from-black/80 hover:to-white/20 hover:scale-105 transform transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-white/30 border border-white/10;
+/* Enhanced Glassmorphism Styles - High Visibility */
+.glassmorphic-panel {
+  backdrop-filter: blur(15px);
+  background: rgba(15, 23, 42, 0.85);
+  border: 2px solid rgba(0, 245, 255, 0.4);
+  border-radius: 20px;
+  box-shadow: 
+    0 20px 60px rgba(0, 0, 0, 0.6),
+    0 0 0 1px rgba(255, 255, 255, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
 }
+
+.glassmorphic-card {
+  background: linear-gradient(135deg, 
+    rgba(15, 23, 42, 0.9) 0%, 
+    rgba(30, 41, 59, 0.8) 50%,
+    rgba(15, 23, 42, 0.9) 100%);
+  backdrop-filter: blur(25px);
+  border: 2px solid rgba(0, 245, 255, 0.3);
+  box-shadow: 
+    0 15px 40px rgba(0, 0, 0, 0.5),
+    0 0 0 1px rgba(255, 255, 255, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.glassmorphic-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 
+    0 25px 60px rgba(0, 245, 255, 0.2),
+    0 0 0 1px rgba(0, 245, 255, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  border-color: rgba(0, 245, 255, 0.6);
+  background: linear-gradient(135deg, 
+    rgba(15, 23, 42, 0.95) 0%, 
+    rgba(30, 41, 59, 0.9) 50%,
+    rgba(15, 23, 42, 0.95) 100%);
+}
+
+/* Enhanced Button Styles - High Visibility */
+.btn-primary {
+  background: linear-gradient(135deg, var(--color-accent-cyan), var(--color-accent-purple));
+  border: 2px solid rgba(0, 245, 255, 0.5);
+  border-radius: 16px;
+  padding: 14px 28px;
+  color: var(--color-text-primary);
+  font-weight: 700;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 
+    0 8px 25px rgba(0, 245, 255, 0.3),
+    0 0 0 1px rgba(255, 255, 255, 0.1),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(255,255,255,0.3), 
+    transparent);
+  transition: left 0.5s;
+}
+
+.btn-primary:hover::before {
+  left: 100%;
+}
+
+.btn-primary:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 
+    0 15px 35px rgba(0, 245, 255, 0.4),
+    0 0 0 1px rgba(255, 255, 255, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.3);
+  border-color: rgba(0, 245, 255, 0.8);
+}
+
 .btn-secondary {
   @apply border border-gray-700/60 text-white font-semibold px-8 py-3 rounded-xl hover:bg-gradient-to-r hover:from-black/30 hover:to-white/10 hover:scale-105 transform transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-gray-400/40;
 }
 
 .btn-accent {
   @apply bg-gradient-to-r from-[var(--accent)] to-[var(--accent-hover)] text-black font-bold px-8 py-3 rounded-xl shadow-lg hover:from-[var(--accent-hover)] hover:to-[var(--accent)] hover:scale-105 transform transition-all duration-300 border border-[var(--accent)]/30;
+}
+
+/* Enhanced Button Variants - High Visibility */
+.enhanced-button {
+  background: linear-gradient(135deg, var(--color-accent-cyan), var(--color-accent-purple));
+  border: 2px solid rgba(0, 245, 255, 0.6);
+  border-radius: 16px;
+  padding: 14px 28px;
+  color: var(--color-text-primary);
+  font-weight: 700;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  box-shadow: 
+    0 10px 30px rgba(0, 245, 255, 0.4),
+    0 0 0 1px rgba(255, 255, 255, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.enhanced-button::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, 
+    transparent, 
+    rgba(255,255,255,0.4), 
+    transparent);
+  transition: left 0.5s;
+}
+
+.enhanced-button:hover::before {
+  left: 100%;
+}
+
+.enhanced-button:hover {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow: 
+    0 20px 40px rgba(0, 245, 255, 0.5),
+    0 0 0 1px rgba(255, 255, 255, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.35);
+  border-color: rgba(0, 245, 255, 0.9);
 }
 
 /* Dark theme autofill fix for all inputs and textareas */
@@ -58,5 +189,221 @@ textarea:-webkit-autofill {
   -webkit-text-fill-color: #fff !important;
   caret-color: #fff !important;
   transition: background-color 5000s ease-in-out 0s;
+}
+
+/* Custom Animations */
+@keyframes gridMove {
+  0% {
+    transform: translate(0, 0);
+  }
+  100% {
+    transform: translate(50px, 50px);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 40px rgba(59, 130, 246, 0.6);
+  }
+}
+
+@keyframes gradient-shift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1a1a2e;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(45deg, #3b82f6, #8b5cf6);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(45deg, #2563eb, #7c3aed);
+}
+
+/* Selection color */
+::selection {
+  background: rgba(59, 130, 246, 0.3);
+  color: white;
+}
+
+/* Focus styles */
+*:focus {
+  outline: 2px solid rgba(59, 130, 246, 0.5);
+  outline-offset: 2px;
+}
+
+/* Floating Label Styles */
+.floating-label-input {
+  position: relative;
+  margin-bottom: 24px;
+}
+
+.floating-label-input input,
+.floating-label-input textarea {
+  width: 100%;
+  padding: 16px 12px 8px 12px;
+  background: rgba(99, 102, 241, 0.05);
+  border: 1px solid rgba(248, 250, 252, 0.1);
+  border-radius: 8px;
+  color: var(--color-text-primary);
+  transition: all 0.3s ease;
+}
+
+.floating-label-input label {
+  position: absolute;
+  left: 12px;
+  top: 16px;
+  color: rgba(248, 250, 252, 0.6);
+  transition: all 0.3s ease;
+  pointer-events: none;
+}
+
+.floating-label-input input:focus + label,
+.floating-label-input input:not(:placeholder-shown) + label,
+.floating-label-input textarea:focus + label,
+.floating-label-input textarea:not(:placeholder-shown) + label {
+  transform: translateY(-8px) scale(0.85);
+  color: var(--color-accent-cyan);
+}
+
+/* Enhanced Form Styles */
+.enhanced-form-input {
+  background: rgba(99, 102, 241, 0.05);
+  border: 1px solid rgba(248, 250, 252, 0.1);
+  border-radius: 8px;
+  padding: 12px 16px;
+  color: var(--color-text-primary);
+  transition: all 0.3s ease;
+}
+
+.enhanced-form-input:focus {
+  outline: none;
+  border-color: var(--color-accent-cyan);
+  box-shadow: 0 0 0 3px rgba(0, 245, 255, 0.1);
+  background: rgba(99, 102, 241, 0.08);
+}
+
+/* Animation utilities */
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.animate-gradient-shift {
+  animation: gradient-shift 3s ease infinite;
+  background-size: 200% 200%;
+}
+
+/* Accessibility Improvements */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* High Visibility Content Styles */
+.high-visibility-text {
+  text-shadow: 
+    0 2px 4px rgba(0, 0, 0, 0.8),
+    0 0 8px rgba(0, 245, 255, 0.3);
+  color: #ffffff !important;
+}
+
+.high-visibility-card {
+  background: linear-gradient(135deg, 
+    rgba(15, 23, 42, 0.95) 0%, 
+    rgba(30, 41, 59, 0.9) 50%,
+    rgba(15, 23, 42, 0.95) 100%);
+  backdrop-filter: blur(30px);
+  border: 2px solid rgba(0, 245, 255, 0.4);
+  border-radius: 20px;
+  box-shadow: 
+    0 25px 50px rgba(0, 0, 0, 0.7),
+    0 0 0 1px rgba(255, 255, 255, 0.15),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+}
+
+.high-visibility-section {
+  background: linear-gradient(135deg, 
+    rgba(0, 0, 0, 0.8) 0%, 
+    rgba(15, 23, 42, 0.9) 50%,
+    rgba(0, 0, 0, 0.8) 100%);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(0, 245, 255, 0.2);
+  border-radius: 24px;
+  box-shadow: 
+    0 20px 60px rgba(0, 0, 0, 0.6),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+/* Enhanced Form Input Visibility */
+.enhanced-form-input {
+  background: rgba(15, 23, 42, 0.9) !important;
+  border: 2px solid rgba(0, 245, 255, 0.3) !important;
+  border-radius: 12px;
+  padding: 16px 20px;
+  color: #ffffff !important;
+  transition: all 0.3s ease;
+  box-shadow: 
+    0 8px 25px rgba(0, 0, 0, 0.4),
+    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+}
+
+.enhanced-form-input:focus {
+  outline: none !important;
+  border-color: rgba(0, 245, 255, 0.7) !important;
+  box-shadow: 
+    0 0 0 3px rgba(0, 245, 255, 0.2),
+    0 12px 30px rgba(0, 245, 255, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+  background: rgba(15, 23, 42, 0.95) !important;
+}
+
+/* Performance Optimizations */
+.will-change-transform {
+  will-change: transform;
+}
+
+.will-change-backdrop-filter {
+  will-change: backdrop-filter;
 }
 

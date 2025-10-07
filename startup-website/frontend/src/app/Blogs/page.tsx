@@ -1,446 +1,359 @@
 "use client";
 
 import { useState } from "react";
-import {
-  Search,
-  Calendar,
-  Clock,
-  ArrowRight,
-  BookOpen,
-  Tag,
-  X,
-  Menu,
-  Rocket,
-} from "lucide-react";
+import { motion } from "framer-motion";
+import { Search, Calendar, Clock, ArrowRight, BookOpen, Tag, X, Menu, Rocket } from "lucide-react";
 import Link from "next/link";
-import dynamic from "next/dynamic";
-import ThreeDBackground from "../../components/ThreeDBackground";
 import axios from "axios";
-import Footer from "@/components/ui/Footer";
-
-// Dynamically import ParticleBackground with SSR disabled
-const ParticleBackground = dynamic(() => import("../../components/ParticleBackground"), {
-  ssr: false,
-  loading: () => <div className="absolute inset-0 bg-black" />,
-});
+import VideoBackground from "../../components/VideoBackground";
+import AnimatedNavbar from "../../components/AnimatedNavbar";
+import AnimatedFooter from "../../components/AnimatedFooter";
 
 export default function BlogsPage() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [email, setEmail] = useState("");
-  const [isSubscribed, setIsSubscribed] = useState(false);
-  const [subscribeError, setSubscribeError] = useState("");
 
-  const blogPosts = [
+  const categories = ["All", "AI Research", "Technology", "Industry Insights", "Company News"];
+
+  const blogs = [
     {
       id: 1,
-      title: "The Future of Artificial General Intelligence: What to Expect in 2025",
-      excerpt:
-        "Explore the latest developments in AGI research and how SKY AI is contributing to this revolutionary field. Discover what breakthroughs we can expect in the coming year.",
+      title: "The Future of AI in Business: A Comprehensive Guide",
+      excerpt: "Exploring how artificial intelligence is transforming modern business operations and what companies need to know to stay competitive.",
       category: "AI Research",
-      author: "Dr. Sarah Chen",
-      date: "December 15, 2024",
+      date: "2025-01-15",
       readTime: "8 min read",
-      image: "🧠",
-      tags: ["AGI", "Research", "Future Tech"],
+      image: "/api/placeholder/400/250",
+      tags: ["AI", "Business", "Technology", "Future"],
     },
     {
       id: 2,
-      title: "Optimizing AI Workflows: Best Practices for Enterprise Implementation",
-      excerpt:
-        "Learn how leading companies are integrating AI into their workflows. We share proven strategies and common pitfalls to avoid when implementing AI solutions.",
-      category: "Enterprise",
-      author: "Michael Rodriguez",
-      date: "December 10, 2024",
+      title: "Machine Learning vs Deep Learning: Understanding the Differences",
+      excerpt: "A detailed comparison of machine learning and deep learning approaches, their applications, and when to use each.",
+      category: "Technology",
+      date: "2025-01-12",
       readTime: "6 min read",
-      image: "⚡",
-      tags: ["Enterprise", "Workflow", "Implementation"],
+      image: "/api/placeholder/400/250",
+      tags: ["Machine Learning", "Deep Learning", "AI", "Education"],
     },
     {
       id: 3,
-      title: "Breaking Down Complex AI Models: Making Machine Learning Accessible",
-      excerpt:
-        "Demystifying the latest AI architectures and explaining how they work in simple terms. Perfect for technical teams looking to understand modern AI capabilities.",
-      category: "Technical",
-      author: "Alex Thompson",
-      date: "December 5, 2024",
-      readTime: "10 min read",
-      image: "🚀",
-      tags: ["Machine Learning", "Technical", "Education"],
+      title: "How SKY AI is Revolutionizing Data Analysis",
+      excerpt: "Discover how our innovative AI solutions are helping businesses make better decisions through advanced data analysis.",
+      category: "Company News",
+      date: "2025-01-10",
+      readTime: "5 min read",
+      image: "/api/placeholder/400/250",
+      tags: ["SKY AI", "Data Analysis", "Innovation", "Case Study"],
     },
     {
       id: 4,
-      title: "Privacy-First AI: How We Built Security Into Every Layer",
-      excerpt:
-        "Deep dive into SKY AI's approach to privacy and security. Learn about our zero-trust architecture and end-to-end encryption implementation.",
-      category: "Security",
-      author: "Jennifer Kim",
-      date: "November 28, 2024",
+      title: "The Ethics of Artificial Intelligence in Healthcare",
+      excerpt: "Examining the ethical considerations and challenges of implementing AI solutions in healthcare settings.",
+      category: "Industry Insights",
+      date: "2025-01-08",
       readTime: "7 min read",
-      image: "🔒",
-      tags: ["Security", "Privacy", "Architecture"],
+      image: "/api/placeholder/400/250",
+      tags: ["AI Ethics", "Healthcare", "Technology", "Society"],
     },
     {
       id: 5,
-      title: "The Human-AI Collaboration Revolution",
-      excerpt:
-        "Exploring how AI augments human creativity rather than replacing it. Real stories from teams who have transformed their productivity with AI assistance.",
-      category: "Innovation",
-      author: "David Park",
-      date: "November 20, 2024",
-      readTime: "5 min read",
-      image: "👥",
-      tags: ["Collaboration", "Productivity", "Innovation"],
+      title: "Building Scalable AI Systems: Best Practices",
+      excerpt: "Learn the essential principles and practices for creating AI systems that can grow with your business needs.",
+      category: "Technology",
+      date: "2025-01-05",
+      readTime: "9 min read",
+      image: "/api/placeholder/400/250",
+      tags: ["AI Systems", "Scalability", "Best Practices", "Development"],
     },
     {
       id: 6,
-      title: "Open Source AI: Contributing to the Global AI Community",
-      excerpt:
-        "Our commitment to open source development and how we're giving back to the AI research community. Plus, upcoming projects you can contribute to.",
-      category: "Open Source",
-      author: "Lisa Zhang",
-      date: "November 15, 2024",
-      readTime: "4 min read",
-      image: "🌐",
-      tags: ["Open Source", "Community", "Research"],
+      title: "The Impact of AI on Job Markets: Opportunities and Challenges",
+      excerpt: "Analyzing how artificial intelligence is reshaping employment landscapes and creating new opportunities.",
+      category: "Industry Insights",
+      date: "2025-01-03",
+      readTime: "6 min read",
+      image: "/api/placeholder/400/250",
+      tags: ["AI Impact", "Jobs", "Economy", "Future of Work"],
     },
   ];
 
-  const categories = [
-    "All",
-    "AI Research",
-    "Enterprise",
-    "Technical",
-    "Security",
-    "Innovation",
-    "Open Source",
-  ];
-
-  const filteredPosts = blogPosts.filter((post) => {
-    const matchesSearch =
-      post.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      post.excerpt.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      post.tags.some((tag) => tag.toLowerCase().includes(searchTerm.toLowerCase()));
-    const matchesCategory = selectedCategory === "All" || post.category === selectedCategory;
+  const filteredBlogs = blogs.filter(blog => {
+    const matchesSearch = blog.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                         blog.excerpt.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesCategory = selectedCategory === "All" || blog.category === selectedCategory;
     return matchesSearch && matchesCategory;
   });
 
-  const featuredPost = blogPosts[0];
+  const [isSubscribing, setIsSubscribing] = useState(false);
+  const [subscriptionStatus, setSubscriptionStatus] = useState("");
 
   const handleNewsletterSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    setSubscribeError("");
-    if (email) {
-      try {
-        // Call backend API to send confirmation email
-        await axios.post("/api/newsletter/subscribe", { email });
-        setIsSubscribed(true);
-        setEmail("");
-        setTimeout(() => setIsSubscribed(false), 3000);
-      } catch (err: any) {
-        setSubscribeError(
-          err?.response?.data?.message || "Failed to subscribe. Please try again."
-        );
+    if (!email) return;
+    
+    setIsSubscribing(true);
+    setSubscriptionStatus("");
+    
+    try {
+      await axios.post("/api/newsletter", { email });
+      setSubscriptionStatus("success");
+      setEmail("");
+    } catch (error: any) {
+      if (error.response?.status === 409) {
+        setSubscriptionStatus("already_subscribed");
+      } else {
+        setSubscriptionStatus("error");
       }
+    } finally {
+      setIsSubscribing(false);
     }
   };
 
   return (
-    <div className="min-h-screen bg-black relative overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-br from-black via-black to-white/5 pointer-events-none" />
-      <div className="absolute inset-0 z-0 pointer-events-none">
-        <ThreeDBackground />
-      </div>
+    <div className="min-h-screen relative overflow-hidden font-[Poppins,Arial,sans-serif]">
+      {/* Animated Background */}
+      <VideoBackground />
+      
       {/* Navigation */}
-      <nav className="fixed w-full z-50 bg-gradient-to-br from-black via-black to-white/5 backdrop-blur-2xl border-b border-white/10 shadow-2xl shadow-black/60 transition-all duration-700 ease-out">
-        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-          <div className="flex items-center justify-between h-20">
-            <div className="flex-shrink-0 flex items-center gap-3">
-              <span className="ml-3 text-base sm:text-lg font-semibold text-white tracking-wide select-none whitespace-nowrap">
-                SKY AI
-              </span>
-            </div>
-            <div className="hidden md:flex items-center space-x-10">
-              {[
-                { name: "Home", href: "/" },
-                { name: "Blogs", href: "/Blogs" },
-                { name: "About Us", href: "/Aboutus" },
-                { name: "Careers", href: "/Careers" },
-                { name: "Contact", href: "/Contact" },
-              ].map((item) => (
-                <Link
-                  key={item.name}
-                  href={item.href}
-                  className={`text-white hover:text-gray-300 text-base font-semibold tracking-wide relative group transition-colors duration-300 ${
-                    item.name === "Blogs" ? "text-white" : ""
-                  }`}
-                >
-                  {item.name}
-                  <span className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-r from-white to-black scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left"></span>
-                </Link>
-              ))}
-            </div>
-
-            <div className="md:hidden">
-              <button
-                onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="text-white hover:text-black p-2"
-                aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-              >
-                {isMenuOpen ? <X size={24} /> : <Menu size={24} />}
-              </button>
-            </div>
-          </div>
-
-          {isMenuOpen && (
-            <div className="md:hidden bg-black/95 backdrop-blur-2xl border-t border-white/10">
-              <div className="px-2 pt-2 pb-3 space-y-1">
-                {[
-                  { name: "Home", href: "/" },
-                  { name: "Blogs", href: "/Blogs" },
-                  { name: "About Us", href: "/Aboutus" },
-                  { name: "Careers", href: "/Careers" },
-                  { name: "Contact", href: "/Contact" },
-                ].map((item) => (
-                  <Link
-                    key={item.name}
-                    href={item.href}
-                    onClick={() => setIsMenuOpen(false)}
-                    className={`text-white hover:text-gray-300 block px-3 py-2 rounded-md text-base font-medium ${
-                      item.name === "Blogs" ? "text-white" : ""
-                    }`}
-                  >
-                    {item.name}
-                  </Link>
-                ))}
-              </div>
-            </div>
-          )}
-        </div>
-      </nav>
-
+      <AnimatedNavbar />
+      
       {/* Hero Section */}
-      <section className="relative overflow-hidden z-10 pt-32 pb-20">
-        <div className="relative max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-          <div className="max-w-4xl mx-auto text-center">
-            <div className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-black/60 to-white/10 border border-white/20 rounded-full text-white text-sm font-medium mb-8 backdrop-blur-sm shadow-lg shadow-black/20">
-              <BookOpen className="w-4 h-4 mr-2 text-white/80" />
-              Insights from the AI frontier
-            </div>
-
-            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold text-white mb-8 leading-tight tracking-tight">
-              SKY AI
-              <br />
-              <span className="bg-gradient-to-r from-white via-gray-300 to-black bg-clip-text text-transparent">
-                Blog
+      <section className="relative pt-32 pb-20">
+        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
+          <motion.div
+            className="text-center"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+          >
+            <motion.div
+              className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-blue-500/20 to-purple-500/20 border border-blue-500/30 rounded-full text-blue-400 text-sm font-medium mb-8 backdrop-blur-sm"
+              whileHover={{ scale: 1.05 }}
+              transition={{ type: "spring", stiffness: 300 }}
+            >
+              <BookOpen className="w-4 h-4 mr-2" />
+              AI Insights & Research
+            </motion.div>
+            
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">
+              Our
+              <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent block">
+                AI Blog
               </span>
             </h1>
-
-            <p className="text-xl sm:text-2xl text-gray-300 mb-12 max-w-3xl mx-auto leading-relaxed font-light">
-              Discover the latest in AI research, enterprise solutions, and the future of artificial intelligence.
+            
+            <p className="text-xl text-gray-300 max-w-3xl mx-auto leading-relaxed mb-12">
+              Stay updated with the latest insights, research, and innovations in artificial intelligence.
             </p>
-          </div>
+          </motion.div>
         </div>
       </section>
 
       {/* Search and Filter Section */}
-      <section className="py-12 relative z-10">
+      <section className="py-12">
         <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-          <div className="flex flex-col md:flex-row gap-6 items-center justify-between mb-12">
-            {/* Search Bar */}
-            <div className="relative flex-1 max-w-md">
-              <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
-              <input
-                type="text"
-                placeholder="Search articles..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-12 pr-4 py-3 bg-gray-900/50 border border-gray-700/50 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-white/50 focus:ring-2 focus:ring-white/20 transition-all duration-300"
-              />
-            </div>
-
-            {/* Category Filter */}
-            <div className="flex flex-wrap gap-2">
-              {categories.map((category) => (
-                <button
-                  key={category}
-                  onClick={() => setSelectedCategory(category)}
-                  className={`px-4 py-2 rounded-full text-sm font-medium transition-all duration-300 ${
-                    selectedCategory === category
-                      ? "bg-gradient-to-r from-black to-white/20 text-white shadow-lg shadow-black/20"
-                      : "bg-gray-900/50 border border-gray-700/50 text-gray-300 hover:text-white hover:border-gray-600/70"
-                  }`}
-                >
-                  {category}
-                </button>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Featured Post */}
-      <section className="py-12 relative z-10">
-        <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
-          <Link href={`/Blogs/${featuredPost.id}`}>
-            <div className="bg-gradient-to-br from-black/30 to-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-8 shadow-lg shadow-black/20 hover:scale-105 transition-transform duration-300 cursor-pointer">
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
-                <div>
-                  <div className="flex items-center space-x-4 mb-4">
-                    <span className="px-3 py-1 bg-gradient-to-r from-black/30 to-white/10 border border-white/20 rounded-full text-white text-sm font-medium">
-                      Featured
-                    </span>
-                    <span className="text-gray-400 text-sm">{featuredPost.category}</span>
-                  </div>
-
-                  <h2 className="text-3xl font-bold text-white mb-4 leading-tight">
-                    {featuredPost.title}
-                  </h2>
-
-                  <p className="text-gray-300 text-lg mb-6 leading-relaxed">
-                    {featuredPost.excerpt}
-                  </p>
-
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center space-x-4 text-gray-400 text-sm">
-                      <span>{featuredPost.author}</span>
-                      <div className="flex items-center">
-                        <Calendar className="w-4 h-4 mr-1" />
-                        {featuredPost.date}
-                      </div>
-                      <div className="flex items-center">
-                        <Clock className="w-4 h-4 mr-1" />
-                        {featuredPost.readTime}
-                      </div>
-                    </div>
-
-                    <div className="flex items-center text-white hover:text-gray-300 font-medium transition-colors duration-300">
-                      Read More <ArrowRight className="ml-2 w-4 h-4" />
-                    </div>
-                  </div>
-                </div>
-
-                <div className="flex items-center justify-center">
-                  <div className="text-8xl opacity-20">{featuredPost.image}</div>
+          <motion.div
+            className="glassmorphic-card p-8 rounded-2xl"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+          >
+            <div className="flex flex-col lg:flex-row gap-6">
+              {/* Search */}
+              <div className="flex-1">
+                <div className="relative">
+                  <Search className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-400 w-5 h-5" />
+                  <input
+                    type="text"
+                    placeholder="Search articles..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="w-full pl-12 pr-4 py-3 bg-gray-800/50 border border-gray-600/50 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
+                  />
                 </div>
               </div>
+
+              {/* Category Filter */}
+              <div className="flex flex-wrap gap-2">
+                {categories.map((category) => (
+                  <motion.button
+                    key={category}
+                    onClick={() => setSelectedCategory(category)}
+                    className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 ${
+                      selectedCategory === category
+                        ? "bg-gradient-to-r from-blue-500 to-purple-600 text-white"
+                        : "bg-gray-800/50 text-gray-300 hover:bg-gray-700/50"
+                    }`}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                  >
+                    {category}
+                  </motion.button>
+                ))}
+              </div>
             </div>
-          </Link>
+          </motion.div>
         </div>
       </section>
 
-      {/* Blog Posts Grid */}
-      <section className="py-24 relative z-10">
+      {/* Blog Grid */}
+      <section className="py-12">
         <div className="max-w-7xl mx-auto px-6 sm:px-8 lg:px-12">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {filteredPosts.map((post) => (
-              <Link key={post.id} href={`/Blogs/${post.id}`}>
-                <article className="bg-gradient-to-br from-black/30 to-white/10 backdrop-blur-sm border border-white/20 rounded-2xl p-6 shadow-lg shadow-black/20 hover:scale-105 transition-transform duration-300 cursor-pointer group">
-                  <div className="flex items-center justify-between mb-4">
-                    <span className="px-3 py-1 bg-gradient-to-r from-black/20 to-white/10 border border-white/20 rounded-full text-white text-xs font-medium">
-                      {post.category}
-                    </span>
-                    <div className="text-3xl opacity-30 group-hover:opacity-50 transition-opacity duration-300">
-                      {post.image}
+            {filteredBlogs.map((blog, index) => (
+              <motion.article
+                key={blog.id}
+                className="group relative"
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                whileHover={{ y: -10, scale: 1.02 }}
+              >
+                <div className="glassmorphic-card relative rounded-2xl overflow-hidden hover:border-[var(--color-accent-cyan)]/30 transition-all duration-300 h-full">
+                  {/* Image */}
+                  <div className="aspect-video bg-gradient-to-br from-blue-500/20 to-purple-500/20 relative overflow-hidden">
+                    <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-purple-500/10" />
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <BookOpen className="w-16 h-16 text-blue-400/30" />
                     </div>
                   </div>
 
-                  <h3 className="text-xl font-bold text-white mb-3 leading-tight group-hover:text-gray-100 transition-colors duration-300">
-                    {post.title}
-                  </h3>
-
-                  <p className="text-gray-300 text-sm mb-4 leading-relaxed">{post.excerpt}</p>
-
-                  <div className="flex flex-wrap gap-2 mb-4">
-                    {post.tags.map((tag, index) => (
-                      <span
-                        key={index}
-                        className="flex items-center px-2 py-1 bg-gray-800/50 border border-gray-700/30 rounded-md text-gray-400 text-xs"
-                      >
-                        <Tag className="w-3 h-3 mr-1" />
-                        {tag}
+                  {/* Content */}
+                  <div className="p-6">
+                    <div className="flex items-center gap-2 mb-3">
+                      <span className="px-2 py-1 bg-gradient-to-r from-blue-500/20 to-purple-500/20 border border-blue-500/30 rounded text-blue-400 text-xs font-medium">
+                        {blog.category}
                       </span>
-                    ))}
-                  </div>
+                    </div>
 
-                  <div className="flex items-center justify-between pt-4 border-t border-gray-700/30">
-                    <div className="text-gray-400 text-xs">
-                      <p className="font-medium">{post.author}</p>
-                      <div className="flex items-center space-x-3 mt-1">
-                        <span className="flex items-center">
-                          <Calendar className="w-3 h-3 mr-1" />
-                          {post.date}
+                    <h3 className="text-xl font-bold text-white mb-3 group-hover:text-blue-400 transition-colors duration-300">
+                      {blog.title}
+                    </h3>
+
+                    <p className="text-gray-300 text-sm leading-relaxed mb-4">
+                      {blog.excerpt}
+                    </p>
+
+                    {/* Tags */}
+                    <div className="flex flex-wrap gap-1 mb-4">
+                      {blog.tags.map((tag) => (
+                        <span
+                          key={tag}
+                          className="px-2 py-1 bg-gray-800/50 rounded text-gray-400 text-xs"
+                        >
+                          {tag}
                         </span>
-                        <span className="flex items-center">
-                          <Clock className="w-3 h-3 mr-1" />
-                          {post.readTime}
-                        </span>
+                      ))}
+                    </div>
+
+                    {/* Meta */}
+                    <div className="flex items-center justify-between text-sm text-gray-400">
+                      <div className="flex items-center gap-4">
+                        <div className="flex items-center gap-1">
+                          <Calendar className="w-4 h-4" />
+                          {new Date(blog.date).toLocaleDateString()}
+                        </div>
+                        <div className="flex items-center gap-1">
+                          <Clock className="w-4 h-4" />
+                          {blog.readTime}
+                        </div>
                       </div>
-                    </div>
-
-                    <div className="flex items-center text-white hover:text-gray-300 text-sm font-medium transition-colors duration-300">
-                      Read <ArrowRight className="ml-1 w-3 h-3" />
+                      <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
                     </div>
                   </div>
-                </article>
-              </Link>
+                </div>
+              </motion.article>
             ))}
           </div>
 
-          {filteredPosts.length === 0 && (
-            <div className="text-center py-16">
-              <div className="text-6xl opacity-30 mb-4">🔍</div>
-              <h3 className="text-2xl font-bold text-white mb-2">No articles found</h3>
-              <p className="text-gray-400">Try adjusting your search or filter criteria.</p>
-            </div>
-          )}
-        </div>
-      </section>
-
-      {/* Newsletter Signup */}
-      <section className="py-24 bg-gradient-to-r from-black/30 via-black to-white/10 relative z-10">
-        <div className="max-w-4xl mx-auto px-6 sm:px-8 lg:px-12 text-center">
-          <h2 className="text-4xl sm:text-5xl font-bold text-white mb-6 tracking-tight">
-            Stay Updated
-          </h2>
-          <p className="text-xl text-gray-300 mb-12 font-light">
-            Get the latest AI insights and research delivered to your inbox weekly.
-          </p>
-
-          {isSubscribed && (
-            <div className="mb-6 p-4 bg-gradient-to-r from-white/10 to-black/10 border border-white/20 rounded-xl flex items-center justify-center mx-auto max-w-md">
-              <span className="text-white">Subscribed successfully! Check your inbox.</span>
-            </div>
-          )}
-          {subscribeError && (
-            <div className="mb-6 p-4 bg-gradient-to-r from-black/30 to-white/10 border border-red-400/30 rounded-xl flex items-center justify-center mx-auto max-w-md">
-              <span className="text-red-300">{subscribeError}</span>
-            </div>
-          )}
-
-          <form onSubmit={handleNewsletterSubmit} className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
-            <input
-              type="email"
-              placeholder="Enter your email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              className="flex-1 px-6 py-3 bg-gray-900/50 border border-gray-700/50 rounded-xl text-white placeholder-gray-400 focus:outline-none focus:border-white/50 focus:ring-2 focus:ring-white/20 transition-all duration-300"
-            />
-            <button
-              type="submit"
-              className="bg-gradient-to-r from-black to-white/10 hover:from-black/80 hover:to-white/20 text-white px-8 py-3 rounded-xl font-medium transition-all duration-300 shadow-lg shadow-black/30 border border-gray-500/50 hover:scale-105 transform hover:shadow-black/40"
+          {filteredBlogs.length === 0 && (
+            <motion.div
+              className="text-center py-12"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.6 }}
             >
-              Subscribe
-            </button>
-          </form>
+              <BookOpen className="w-16 h-16 text-gray-600 mx-auto mb-4" />
+              <h3 className="text-xl font-semibold text-gray-400 mb-2">No articles found</h3>
+              <p className="text-gray-500">Try adjusting your search or filter criteria.</p>
+            </motion.div>
+          )}
         </div>
       </section>
 
+      {/* Newsletter Section */}
+      <section className="py-20">
+        <div className="max-w-4xl mx-auto px-6 sm:px-8 lg:px-12">
+          <motion.div
+            className="glassmorphic-card p-8 rounded-2xl text-center"
+            initial={{ opacity: 0, y: 30 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <h3 className="text-2xl font-bold text-white mb-4">Stay Updated</h3>
+            <p className="text-gray-300 mb-6">
+              Subscribe to our newsletter for the latest AI insights and company updates.
+            </p>
+            <form onSubmit={handleNewsletterSubmit} className="flex flex-col sm:flex-row gap-4 max-w-md mx-auto">
+              <input
+                type="email"
+                placeholder="Enter your email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                className="flex-1 px-4 py-3 bg-gray-800/50 border border-gray-600/50 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
+                required
+                disabled={isSubscribing}
+              />
+              <motion.button
+                type="submit"
+                disabled={isSubscribing || !email}
+                className="px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold rounded-lg hover:from-blue-600 hover:to-purple-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+              >
+                {isSubscribing ? "Subscribing..." : "Subscribe"}
+              </motion.button>
+            </form>
 
+            {subscriptionStatus === "success" && (
+              <motion.p
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="text-green-400 text-sm mt-4 text-center"
+              >
+                ✅ Successfully subscribed to our newsletter!
+              </motion.p>
+            )}
+            
+            {subscriptionStatus === "already_subscribed" && (
+              <motion.p
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="text-yellow-400 text-sm mt-4 text-center"
+              >
+                ⚠️ This email is already subscribed to our newsletter
+              </motion.p>
+            )}
+            
+            {subscriptionStatus === "error" && (
+              <motion.p
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="text-red-400 text-sm mt-4 text-center"
+              >
+                ❌ Subscription failed. Please try again later.
+              </motion.p>
+            )}
+          </motion.div>
+        </div>
+      </section>
 
-    <Footer/>
+      {/* Footer */}
+      <AnimatedFooter />
     </div>
   );
 }

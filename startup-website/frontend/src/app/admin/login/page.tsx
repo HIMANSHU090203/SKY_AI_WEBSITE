@@ -1,6 +1,7 @@
 "use client";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
+import VideoBackground from "../../../components/VideoBackground";
 
 export default function AdminLoginPage() {
   const [email, setEmail] = useState("");
@@ -32,10 +33,13 @@ export default function AdminLoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#0f172a] to-[#1e293b] px-4">
+    <div className="min-h-screen flex items-center justify-center relative overflow-hidden">
+      {/* Animated Background */}
+      <VideoBackground />
+      
       <form
         onSubmit={handleSubmit}
-        className="w-full max-w-md bg-white/10 backdrop-blur-md p-8 rounded-2xl border border-white/10 shadow-xl text-white"
+        className="relative z-10 w-full max-w-md bg-white/10 backdrop-blur-md p-8 rounded-2xl border border-white/10 shadow-xl text-white"
       >
         <h2 className="text-3xl font-bold text-center mb-6">🔐 Admin Login</h2>
 

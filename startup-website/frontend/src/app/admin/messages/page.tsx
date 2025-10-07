@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import VideoBackground from "../../../components/VideoBackground";
 
 interface ContactMessage {
   _id: string;
@@ -61,8 +62,12 @@ export default function AdminMessagesPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0f172a] text-white px-6 py-10">
-      <div className="max-w-6xl mx-auto">
+    <div className="min-h-screen relative overflow-hidden">
+      {/* Animated Background */}
+      <VideoBackground />
+      
+      <div className="relative z-10 text-white px-6 py-10">
+        <div className="max-w-6xl mx-auto">
         <div className="flex items-center justify-between mb-8">
           <h2 className="text-4xl font-semibold border-b border-slate-700 pb-4">
             📩 Admin Contact Messages
@@ -111,6 +116,7 @@ export default function AdminMessagesPage() {
             </table>
           </div>
         )}
+        </div>
       </div>
     </div>
   );
