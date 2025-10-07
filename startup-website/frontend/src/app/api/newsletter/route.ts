@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
-import dbConnect from '../../_lib/db';
+import dbConnect from '../_lib/db';
 import mongoose from 'mongoose';
 
 // Newsletter subscription schema
