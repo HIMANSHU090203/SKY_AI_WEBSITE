@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 
 export default function BackgroundTestPage() {
   return (
-    <div className="min-h-screen bg-black relative overflow-hidden font-[Poppins,Arial,sans-serif]">
+    <div className="min-h-screen bg-black relative overflow-hidden font-sans">
       {/* Animated Background */}
       <VideoBackground />
       
@@ -22,7 +22,7 @@ export default function BackgroundTestPage() {
             transition={{ duration: 0.8 }}
             className="text-center"
           >
-            <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-8 leading-tight">
+            <h1 className="font-orbitron text-5xl sm:text-6xl lg:text-7xl font-bold mb-8 leading-tight tracking-tight">
               <span className="bg-gradient-to-r from-white via-white to-purple-400 bg-clip-text text-transparent">
                 Video Background
               </span>

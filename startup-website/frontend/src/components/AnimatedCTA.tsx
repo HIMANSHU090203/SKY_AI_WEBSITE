@@ -90,7 +90,7 @@ export default function AnimatedCTA() {
               Ready to Get Started?
             </motion.div>
             
-            <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-[var(--color-text-primary)] mb-6">
+            <h2 className="font-orbitron text-4xl sm:text-5xl lg:text-6xl font-bold text-[var(--color-text-primary)] mb-6 tracking-tight">
               Let's Build the Future
               <span className="bg-gradient-to-r from-[var(--color-accent-cyan)] to-[var(--color-accent-purple)] bg-clip-text text-transparent block">
                 Together
@@ -110,7 +110,7 @@ export default function AnimatedCTA() {
               >
                 <Link
                   href="/Contact"
-                  className="enhanced-button group relative inline-flex items-center px-10 py-5 text-white font-semibold rounded-xl shadow-lg shadow-[var(--color-accent-cyan)]/25 hover:shadow-[var(--color-accent-cyan)]/40 transition-all duration-300 text-lg"
+                  className="font-orbitron enhanced-button group relative inline-flex items-center px-10 py-5 text-white font-semibold rounded-xl shadow-lg shadow-[var(--color-accent-cyan)]/25 hover:shadow-[var(--color-accent-cyan)]/40 transition-all duration-300 text-lg"
                 >
                   <span className="relative z-10">Start Your AI Journey</span>
                   <ArrowRight className="w-6 h-6 ml-3 group-hover:translate-x-1 transition-transform duration-300" />
@@ -123,7 +123,7 @@ export default function AnimatedCTA() {
               >
                 <Link
                   href="/Aboutus"
-                  className="group inline-flex items-center px-10 py-5 border border-gray-600 text-gray-300 font-semibold rounded-xl hover:border-[var(--color-accent-cyan)] hover:text-[var(--color-accent-cyan)] transition-all duration-300 backdrop-blur-sm text-lg"
+                  className="font-orbitron group inline-flex items-center px-10 py-5 border border-gray-600 text-gray-300 font-semibold rounded-xl hover:border-[var(--color-accent-cyan)] hover:text-[var(--color-accent-cyan)] transition-all duration-300 backdrop-blur-sm text-lg"
                 >
                   <span>Learn More About Us</span>
                   <ArrowRight className="w-6 h-6 ml-3 group-hover:translate-x-1 transition-transform duration-300" />

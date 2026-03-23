@@ -113,7 +113,7 @@ export default function BlogsPage() {
   };
 
   return (
-    <div className="min-h-screen relative overflow-hidden font-[Poppins,Arial,sans-serif]">
+    <div className="min-h-screen relative overflow-hidden font-sans">
       {/* Animated Background */}
       <VideoBackground />
       
@@ -138,7 +138,7 @@ export default function BlogsPage() {
               AI Insights & Research
             </motion.div>
             
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">
+            <h1 className="font-orbitron text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 tracking-tight">
               Our
               <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent block">
                 AI Blog

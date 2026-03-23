@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Menu, X, ArrowRight } from "lucide-react";
 import Link from "next/link";
+import { orbitron } from "@/app/fonts";
 
 export default function AnimatedNavbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -93,7 +94,7 @@ export default function AnimatedNavbar() {
 
   return (
     <motion.nav
-      className={`fixed w-full z-50 transition-all duration-500 ${
+      className={`${orbitron.className} fixed w-full z-50 transition-all duration-500 ${
         scrolled
           ? "glassmorphic-panel border-b border-[var(--color-accent-cyan)]/30 shadow-lg shadow-[var(--color-accent-cyan)]/20"
           : "bg-transparent"

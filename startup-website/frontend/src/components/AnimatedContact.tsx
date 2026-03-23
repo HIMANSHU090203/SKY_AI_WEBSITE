@@ -140,7 +140,7 @@ export default function AnimatedContact() {
             Get in Touch
           </motion.div>
           
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">
+          <h2 className="font-orbitron text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 tracking-tight">
             Ready to Transform
             <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent block">
               Your Business?

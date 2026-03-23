@@ -41,7 +41,7 @@ export default function AdminLoginPage() {
         onSubmit={handleSubmit}
         className="relative z-10 w-full max-w-md bg-white/10 backdrop-blur-md p-8 rounded-2xl border border-white/10 shadow-xl text-white"
       >
-        <h2 className="text-3xl font-bold text-center mb-6">🔐 Admin Login</h2>
+        <h2 className="font-orbitron text-3xl font-bold text-center mb-6 tracking-tight">🔐 Admin Login</h2>
 
         {error && <div className="mb-4 text-red-400 text-sm text-center">{error}</div>}
 

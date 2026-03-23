@@ -1,16 +1,6 @@
 import type { Metadata } from "next";
-import { Inter, JetBrains_Mono } from "next/font/google";
+import { orbitron, ptSansNarrow } from "./fonts";
 import "./globals.css";
-
-const inter = Inter({
-  variable: "--font-inter",
-  subsets: ["latin"],
-});
-
-const jetbrainsMono = JetBrains_Mono({
-  variable: "--font-jetbrains-mono",
-  subsets: ["latin"],
-});
 
 export const metadata: Metadata = {
   title: "SKY AI", 
@@ -23,13 +13,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html
+      lang="en"
+      className={`${ptSansNarrow.variable} ${orbitron.variable}`}
+    >
       <head>
       </head>
-      <body
-        className={`${inter.variable} ${jetbrainsMono.variable} antialiased`}
-        suppressHydrationWarning
-      >
+      <body className={`${ptSansNarrow.className} antialiased`} suppressHydrationWarning>
         {children}
       </body>
     </html>

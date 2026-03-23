@@ -86,7 +86,7 @@ export default function ContactPage() {
   ];
 
   return (
-    <div className="min-h-screen relative overflow-hidden font-[Poppins,Arial,sans-serif]">
+    <div className="min-h-screen relative overflow-hidden font-sans">
       {/* Animated Background */}
       <VideoBackground />
       
@@ -111,7 +111,7 @@ export default function ContactPage() {
               Get in Touch
             </motion.div>
             
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">
+            <h1 className="font-orbitron text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 tracking-tight">
               Ready to Transform
               <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent block">
                 Your Business?
@@ -345,7 +345,7 @@ export default function ContactPage() {
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-3xl font-bold text-white mb-4">
+            <h2 className="font-orbitron text-3xl font-bold text-white mb-4 tracking-tight">
               Find Us <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">Here</span>
             </h2>
             <p className="text-gray-300">Visit our office in Jaipur, India</p>

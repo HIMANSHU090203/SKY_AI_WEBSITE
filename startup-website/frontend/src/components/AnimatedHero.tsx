@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { ArrowRight, Sparkles, Brain, Zap } from "lucide-react";
 import Link from "next/link";
+import { orbitron } from "@/app/fonts";
 
 export default function AnimatedHero() {
   const containerVariants = {
@@ -83,7 +84,7 @@ export default function AnimatedHero() {
         {/* Main content */}
         <motion.h1
           variants={itemVariants}
-          className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-8 leading-tight"
+          className="font-orbitron text-5xl sm:text-6xl lg:text-7xl font-bold mb-8 leading-tight tracking-tight"
         >
           <span className="bg-gradient-to-r from-[var(--color-text-primary)] via-[var(--color-text-primary)] to-[var(--color-accent-cyan)] bg-clip-text text-transparent">
             Empowering Businesses
@@ -96,7 +97,7 @@ export default function AnimatedHero() {
 
         <motion.div variants={itemVariants} className="mb-8">
           <motion.div
-            className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-[var(--color-accent-cyan)]/20 to-[var(--color-accent-purple)]/20 border border-[var(--color-accent-cyan)]/30 rounded-full text-[var(--color-accent-cyan)] text-sm font-medium mb-8 backdrop-blur-sm"
+            className={`${orbitron.className} inline-flex items-center px-4 py-2 bg-gradient-to-r from-[var(--color-accent-cyan)]/20 to-[var(--color-accent-purple)]/20 border border-[var(--color-accent-cyan)]/30 rounded-full text-[var(--color-accent-cyan)] text-sm font-medium mb-8 backdrop-blur-sm tracking-wide`}
             whileHover={{ scale: 1.05 }}
             transition={{ type: "spring", stiffness: 300 }}
           >
@@ -124,7 +125,7 @@ export default function AnimatedHero() {
           >
             <Link
               href="/Contact"
-              className="enhanced-button group relative inline-flex items-center px-8 py-4 text-white font-semibold rounded-xl shadow-lg shadow-[var(--color-accent-cyan)]/25 hover:shadow-[var(--color-accent-cyan)]/40 transition-all duration-300"
+              className={`${orbitron.className} enhanced-button group relative inline-flex items-center px-8 py-4 text-white font-semibold rounded-xl shadow-lg shadow-[var(--color-accent-cyan)]/25 hover:shadow-[var(--color-accent-cyan)]/40 transition-all duration-300`}
             >
               <span className="relative z-10">Get Started</span>
               <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-300" />
@@ -138,7 +139,7 @@ export default function AnimatedHero() {
           >
             <Link
               href="/Aboutus"
-              className="group inline-flex items-center px-8 py-4 border border-gray-600 text-gray-300 font-semibold rounded-xl hover:border-[var(--color-accent-cyan)] hover:text-[var(--color-accent-cyan)] transition-all duration-300 backdrop-blur-sm"
+              className={`${orbitron.className} group inline-flex items-center px-8 py-4 border border-gray-600 text-gray-300 font-semibold rounded-xl hover:border-[var(--color-accent-cyan)] hover:text-[var(--color-accent-cyan)] transition-all duration-300 backdrop-blur-sm`}
             >
               <span>Learn More</span>
               <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform duration-300" />

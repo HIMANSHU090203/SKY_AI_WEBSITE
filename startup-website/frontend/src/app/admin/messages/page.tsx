@@ -69,7 +69,7 @@ export default function AdminMessagesPage() {
       <div className="relative z-10 text-white px-6 py-10">
         <div className="max-w-6xl mx-auto">
         <div className="flex items-center justify-between mb-8">
-          <h2 className="text-4xl font-semibold border-b border-slate-700 pb-4">
+          <h2 className="font-orbitron text-4xl font-semibold border-b border-slate-700 pb-4 tracking-tight">
             📩 Admin Contact Messages
           </h2>
           <button

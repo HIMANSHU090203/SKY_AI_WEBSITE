@@ -105,7 +105,7 @@ export default function AnimatedAbout() {
             About SKY AI
           </motion.div>
           
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">
+          <h2 className="font-orbitron text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 tracking-tight">
             Discover Our
             <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent block">
               Vision & Mission
@@ -143,7 +143,7 @@ export default function AnimatedAbout() {
 
         {/* Values */}
         <motion.div variants={itemVariants}>
-          <h3 className="text-3xl sm:text-4xl font-bold text-white text-center mb-16">
+          <h3 className="font-orbitron text-3xl sm:text-4xl font-bold text-white text-center mb-16 tracking-tight">
             Our <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">Core Values</span>
           </h3>
           

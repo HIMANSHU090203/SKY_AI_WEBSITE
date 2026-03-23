@@ -1,10 +1,22 @@
 @import "tailwindcss";
 
+@theme {
+  --font-sans: var(--font-pt-sans-narrow), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-pt-sans-narrow), sans-serif;
+}
+
+/* Orbitron: explicit utility so it always resolves (Tailwind @theme font-display was unreliable with next/font variables). */
+@layer utilities {
+  .font-orbitron {
+    font-family: var(--font-orbitron), ui-sans-serif, sans-serif;
+  }
+}
+
 :root {
   --background: #ffffff;
   --foreground: #171717;
-  --font-geist-sans: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  --font-geist-mono: 'SF Mono', Monaco, 'Cascadia Code', 'Roboto Mono', Consolas, 'Courier New', monospace;
+  --font-geist-sans: var(--font-pt-sans-narrow), ui-sans-serif, system-ui, sans-serif;
+  --font-geist-mono: var(--font-pt-sans-narrow), sans-serif;
   --accent: #00eaff;
   --accent-hover: #33f0ff;
   
@@ -28,7 +40,6 @@
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 /* If you want to use these as Tailwind CSS custom properties, 

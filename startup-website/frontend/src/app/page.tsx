@@ -11,7 +11,7 @@ import AnimatedFooter from "../components/AnimatedFooter";
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen relative overflow-hidden font-[Poppins,Arial,sans-serif]">
+    <div className="min-h-screen relative overflow-hidden font-sans">
       {/* Animated Background */}
       <VideoBackground />
       

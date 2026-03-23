@@ -113,7 +113,7 @@ export default function AnimatedFeatures() {
             <Sparkles className="w-4 h-4 mr-2" />
             Our Services
           </motion.div>
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">
+          <h2 className="font-orbitron text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 tracking-tight">
             AI Solutions That
             <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent block">
               Drive Results

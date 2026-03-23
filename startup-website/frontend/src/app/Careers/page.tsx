@@ -58,7 +58,7 @@ const Careers = () => {
 
 
   return (
-    <div className="min-h-screen relative overflow-hidden font-[Poppins,Arial,sans-serif]">
+    <div className="min-h-screen relative overflow-hidden font-sans">
       {/* Animated Background */}
       <VideoBackground />
       
@@ -83,7 +83,7 @@ const Careers = () => {
               Join Our Team
             </motion.div>
             
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">
+            <h1 className="font-orbitron text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 tracking-tight">
               Build the Future
               <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent block">
                 with AI
@@ -107,7 +107,7 @@ const Careers = () => {
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-6">
+            <h2 className="font-orbitron text-3xl sm:text-4xl font-bold text-white mb-6 tracking-tight">
               Our <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">Culture</span>
             </h2>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto">
@@ -151,7 +151,7 @@ const Careers = () => {
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-6">
+            <h2 className="font-orbitron text-3xl sm:text-4xl font-bold text-white mb-6 tracking-tight">
               Why Work <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">With Us</span>
             </h2>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto">
@@ -197,7 +197,7 @@ const Careers = () => {
             transition={{ duration: 0.8 }}
             viewport={{ once: true }}
           >
-            <h2 className="text-3xl sm:text-4xl font-bold text-white mb-6">
+            <h2 className="font-orbitron text-3xl sm:text-4xl font-bold text-white mb-6 tracking-tight">
               Open <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent">Positions</span>
             </h2>
             <p className="text-xl text-gray-300 max-w-3xl mx-auto">

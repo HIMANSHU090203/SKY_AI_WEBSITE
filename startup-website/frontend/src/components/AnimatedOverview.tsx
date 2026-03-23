@@ -98,7 +98,7 @@ export default function AnimatedOverview() {
             <Target className="w-4 h-4 mr-2" />
             Why Choose SKY AI
           </motion.div>
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6">
+          <h2 className="font-orbitron text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 tracking-tight">
             Transforming Businesses
             <span className="bg-gradient-to-r from-blue-400 to-purple-400 bg-clip-text text-transparent block">
               with AI Innovation
