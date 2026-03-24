@@ -12,7 +12,6 @@ frontend/
 │
 ├── public/          # Static assets
 ├── next.config.ts   # Next.js config (rewrites, etc.)
-├── package.json     # Dependencies and scripts
 
 
 Quick Start
@@ -24,7 +23,7 @@ MongoDB Atlas account
 
 1. Clone the Repository
 git clone <repo-url>
-cd frontend
+cd startup-website
 
 2. Setup Environment Variables
 
@@ -43,6 +42,10 @@ npm run dev
 
 
 The app runs on http://localhost:3000
+
+Dependency/source-of-truth note:
+- Root `package.json` is the application manifest (dependencies and runtime scripts).
+- The Next.js app source remains in `frontend/`, and root scripts run it via `next ... frontend`.
 
 
 Environment Variables
@@ -80,6 +83,5 @@ Open a Pull Request
 
 Contact
 Email: info@sky-ai.in
-
 
 

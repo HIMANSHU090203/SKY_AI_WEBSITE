@@ -1,6 +1,10 @@
 SKY AI Frontend
 This is the unified frontend for the SKY AI Advanced Research website, built with Next.js 15, React 19, and Tailwind CSS. All API logic is handled via Next.js API routes, and MongoDB Atlas is used for cloud database storage. The app is optimized for seamless deployment to Vercel.
 
+Manifest note:
+- Root `startup-website/package.json` is the source-of-truth manifest for app dependencies and scripts.
+- This folder contains app source code; run commands from `startup-website/`.
+
 Project Structure
 frontend/
 ├── src/
@@ -12,7 +16,6 @@ frontend/
 │
 ├── public/          # Static assets
 ├── next.config.ts   # Next.js config (rewrites, etc.)
-├── package.json     # Dependencies and scripts
 
 
 How to Run Locally

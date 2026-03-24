@@ -2,7 +2,7 @@ import dbConnect from '../src/app/api/_lib/db';
 import User from '../src/lib/models/User';
 import bcrypt from 'bcryptjs';
 import dotenv from 'dotenv';
-dotenv.config({ path: '.env.local' }); // ✅ Loads .env.local explicitly
+dotenv.config({ path: 'frontend/.env.local' });
 
 
 async function seedAdmin() {
