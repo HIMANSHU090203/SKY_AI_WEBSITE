@@ -115,7 +115,7 @@ export default function AnimatedTimeline() {
         {/* Section Header */}
         <motion.div variants={itemVariants} className="text-center mb-20">
           <motion.div
-            className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-blue-500/20 to-purple-500/20 border border-blue-500/30 rounded-full text-blue-400 text-sm font-medium mb-8 backdrop-blur-sm"
+            className="glass-chip inline-flex items-center px-4 py-2 rounded-full text-sm font-medium mb-8"
             whileHover={{ scale: 1.05 }}
             transition={{ type: "spring", stiffness: 300 }}
           >
@@ -163,7 +163,7 @@ export default function AnimatedTimeline() {
                 >
                   <div className="relative p-8 bg-gradient-to-br from-gray-900/50 to-gray-800/30 rounded-2xl border border-gray-700/50 backdrop-blur-sm hover:border-blue-500/30 transition-all duration-300">
                     {/* Year badge */}
-                    <div className="inline-flex items-center px-3 py-1 bg-gradient-to-r from-blue-500/20 to-purple-500/20 border border-blue-500/30 rounded-full text-blue-400 text-sm font-medium mb-4">
+                    <div className="glass-chip inline-flex items-center px-3 py-1 rounded-full text-sm font-medium mb-4">
                       <Calendar className="w-4 h-4 mr-2" />
                       {item.year}
                     </div>
@@ -223,7 +223,7 @@ export default function AnimatedTimeline() {
               {["AI Research", "Global Impact", "Innovation", "Excellence", "Future"].map((vision, index) => (
                 <motion.span
                   key={index}
-                  className="px-4 py-2 bg-gradient-to-r from-blue-500/20 to-purple-500/20 border border-blue-500/30 rounded-full text-blue-400 text-sm font-medium"
+                  className="glass-chip px-4 py-2 rounded-full text-sm font-medium"
                   whileHover={{ scale: 1.05 }}
                   transition={{ type: "spring", stiffness: 300 }}
                 >

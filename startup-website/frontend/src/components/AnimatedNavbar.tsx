@@ -96,7 +96,7 @@ export default function AnimatedNavbar() {
     <motion.nav
       className={`${orbitron.className} fixed w-full z-50 transition-all duration-500 ${
         scrolled
-          ? "glassmorphic-panel border-b border-[var(--color-accent-cyan)]/30 shadow-lg shadow-[var(--color-accent-cyan)]/20"
+          ? "backdrop-blur-md bg-slate-900/75 shadow-lg shadow-black/20"
           : "bg-transparent"
       }`}
       variants={containerVariants}
@@ -201,7 +201,7 @@ export default function AnimatedNavbar() {
         <AnimatePresence>
           {isMenuOpen && (
             <motion.div
-              className="md:hidden glassmorphic-panel border-t border-[var(--color-accent-cyan)]/30 shadow-lg shadow-[var(--color-accent-cyan)]/20"
+              className="md:hidden backdrop-blur-md bg-slate-900/80 shadow-lg shadow-black/20"
               variants={mobileMenuVariants}
               initial="hidden"
               animate="visible"
@@ -227,7 +227,7 @@ export default function AnimatedNavbar() {
                 
                 <motion.div
                   variants={mobileItemVariants}
-                  className="pt-4 border-t border-gray-700/50"
+                  className="pt-4"
                 >
                   <Link
                     href="/Contact"

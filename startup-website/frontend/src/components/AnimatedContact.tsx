@@ -132,7 +132,7 @@ export default function AnimatedContact() {
         {/* Section Header */}
         <motion.div variants={itemVariants} className="text-center mb-20">
           <motion.div
-            className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-blue-500/20 to-purple-500/20 border border-blue-500/30 rounded-full text-blue-400 text-sm font-medium mb-8 backdrop-blur-sm"
+            className="glass-chip inline-flex items-center px-4 py-2 rounded-full text-sm font-medium mb-8"
             whileHover={{ scale: 1.05 }}
             transition={{ type: "spring", stiffness: 300 }}
           >
@@ -317,7 +317,7 @@ export default function AnimatedContact() {
                     href={social.href}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className={`p-3 bg-gray-800/50 rounded-lg text-gray-400 ${social.color} transition-all duration-300`}
+                    className={`rounded-lg border border-white/10 bg-white/5 p-3 text-gray-300 transition hover:-translate-y-0.5 hover:border-cyan-300/40 hover:bg-white/10 hover:text-cyan-200 ${social.color}`}
                     whileHover={{ scale: 1.1, y: -2 }}
                     whileTap={{ scale: 0.95 }}
                     aria-label={social.label}

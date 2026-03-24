@@ -97,7 +97,7 @@ export default function AnimatedHero() {
 
         <motion.div variants={itemVariants} className="mb-8">
           <motion.div
-            className={`${orbitron.className} inline-flex items-center px-4 py-2 bg-gradient-to-r from-[var(--color-accent-cyan)]/20 to-[var(--color-accent-purple)]/20 border border-[var(--color-accent-cyan)]/30 rounded-full text-[var(--color-accent-cyan)] text-sm font-medium mb-8 backdrop-blur-sm tracking-wide`}
+            className={`${orbitron.className} glass-chip inline-flex items-center px-4 py-2 rounded-full text-sm font-medium mb-8 tracking-wide`}
             whileHover={{ scale: 1.05 }}
             transition={{ type: "spring", stiffness: 300 }}
           >

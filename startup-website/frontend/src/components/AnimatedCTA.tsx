@@ -82,7 +82,7 @@ export default function AnimatedCTA() {
         <motion.div variants={itemVariants} className="text-center mb-16">
           <div className="glassmorphic-card max-w-5xl mx-auto p-12 rounded-3xl border border-[var(--color-accent-cyan)]/20">
             <motion.div
-              className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-[var(--color-accent-cyan)]/20 to-[var(--color-accent-purple)]/20 border border-[var(--color-accent-cyan)]/30 rounded-full text-[var(--color-accent-cyan)] text-sm font-medium mb-8 backdrop-blur-sm"
+              className="glass-chip inline-flex items-center px-4 py-2 rounded-full text-sm font-medium mb-8"
               whileHover={{ scale: 1.05 }}
               transition={{ type: "spring", stiffness: 300 }}
             >

@@ -74,7 +74,7 @@ export default function AdminMessagesPage() {
           </h2>
           <button
             onClick={handleLogout}
-            className="bg-red-600 hover:bg-red-700 text-white font-medium px-4 py-2 rounded transition hover:cursor-pointer"
+            className="glass-button-danger font-medium px-4 py-2 hover:cursor-pointer"
           >
             Logout
           </button>

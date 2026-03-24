@@ -75,7 +75,7 @@ const Careers = () => {
             transition={{ duration: 0.8 }}
           >
             <motion.div
-              className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-blue-500/20 to-purple-500/20 border border-blue-500/30 rounded-full text-blue-400 text-sm font-medium mb-8 backdrop-blur-sm"
+              className="glass-chip inline-flex items-center px-4 py-2 rounded-full text-sm font-medium mb-8"
               whileHover={{ scale: 1.05 }}
               transition={{ type: "spring", stiffness: 300 }}
             >
@@ -243,7 +243,7 @@ const Careers = () => {
               We're always looking for talented individuals. Send us your resume and let's discuss opportunities.
             </p>
             <motion.button
-              className="px-8 py-4 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold rounded-xl hover:from-blue-600 hover:to-purple-700 transition-all duration-300"
+              className="glass-button px-8 py-4 font-semibold"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
             >

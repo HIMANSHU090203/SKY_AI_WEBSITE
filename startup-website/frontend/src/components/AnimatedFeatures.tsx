@@ -106,7 +106,7 @@ export default function AnimatedFeatures() {
         {/* Section Header */}
         <motion.div variants={itemVariants} className="text-center mb-20">
           <motion.div
-            className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-blue-500/20 to-purple-500/20 border border-blue-500/30 rounded-full text-blue-400 text-sm font-medium mb-8 backdrop-blur-sm"
+            className="glass-chip inline-flex items-center px-4 py-2 rounded-full text-sm font-medium mb-8"
             whileHover={{ scale: 1.05 }}
             transition={{ type: "spring", stiffness: 300 }}
           >

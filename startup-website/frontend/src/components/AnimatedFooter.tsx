@@ -86,22 +86,22 @@ export default function AnimatedFooter() {
   ];
 
   return (
-    <footer className="bg-gradient-to-t from-[var(--color-primary-bg)] to-gray-900 border-t border-[var(--color-accent-cyan)]/30 backdrop-blur-sm relative overflow-hidden">
+    <footer className="relative overflow-hidden border-t border-white/10 bg-slate-950/35 backdrop-blur-[6px]">
       {/* Background decoration */}
-      <div className="absolute inset-0 bg-gradient-to-br from-[var(--color-accent-cyan)]/5 to-[var(--color-accent-purple)]/5" />
+      <div className="absolute inset-0 bg-gradient-to-br from-cyan-400/5 via-transparent to-violet-500/5 pointer-events-none" />
       
       <motion.div
-        className="relative z-10 max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-16"
+        className="relative z-10 max-w-7xl mx-auto px-6 sm:px-8 lg:px-12 py-8"
         variants={containerVariants}
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true, margin: "-100px" }}
       >
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-x-8 gap-y-4 items-start">
           {/* Company Info */}
-          <motion.div variants={itemVariants} className="lg:col-span-2">
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-20 h-20 rounded-xl overflow-hidden shadow-lg bg-white/10 backdrop-blur-sm">
+          <motion.div variants={itemVariants} className="md:col-span-2 lg:col-span-5">
+            <div className="flex items-center gap-3 mb-3">
+              <div className="w-12 h-12 rounded-xl overflow-hidden shadow-lg bg-white/10 backdrop-blur-sm">
                 <img 
                   src="/Company logo .jpg" 
                   alt="SKY AI Logo" 
@@ -111,15 +111,15 @@ export default function AnimatedFooter() {
               </div>
             </div>
             
-            <p className="text-gray-300 mb-6 leading-relaxed max-w-md">
+            <p className="text-gray-300/90 mb-3 leading-6 max-w-md">
               SKY AI is an innovative technology firm specializing in AI integration for the corporate landscape. 
               We transform advanced research into practical, everyday solutions that drive business growth and efficiency.
             </p>
             
-            <div className="space-y-3">
+            <div className="space-y-2">
               <motion.a
                 href="mailto:info@sky-ai.in"
-                className="flex items-center text-gray-400 hover:text-[var(--color-accent-cyan)] transition-colors duration-300"
+                className="flex items-center text-gray-300/80 hover:text-cyan-200 transition-colors"
                 whileHover={{ x: 5 }}
                 transition={{ type: "spring", stiffness: 300 }}
               >
@@ -129,7 +129,7 @@ export default function AnimatedFooter() {
               
               <motion.a
                 href="tel:+919783982649"
-                className="flex items-center text-gray-400 hover:text-[var(--color-accent-cyan)] transition-colors duration-300"
+                className="flex items-center text-gray-300/80 hover:text-cyan-200 transition-colors"
                 whileHover={{ x: 5 }}
                 transition={{ type: "spring", stiffness: 300 }}
               >
@@ -138,7 +138,7 @@ export default function AnimatedFooter() {
               </motion.a>
               
               <motion.div
-                className="flex items-start text-gray-400"
+                className="flex items-start text-gray-300/80 hover:text-cyan-200 transition-colors"
                 whileHover={{ x: 5 }}
                 transition={{ type: "spring", stiffness: 300 }}
               >
@@ -153,9 +153,9 @@ export default function AnimatedFooter() {
           </motion.div>
 
           {/* Quick Links */}
-          <motion.div variants={itemVariants}>
-            <h4 className="text-lg font-semibold text-[var(--color-text-primary)] mb-6">Quick Links</h4>
-            <ul className="space-y-3">
+          <motion.div variants={itemVariants} className="lg:col-span-3 lg:justify-self-center">
+            <h4 className="text-lg font-semibold text-[var(--color-text-primary)] mb-3">Quick Links</h4>
+            <ul className="space-y-2">
               {quickLinks.map((link, index) => (
                 <motion.li
                   key={index}
@@ -164,7 +164,7 @@ export default function AnimatedFooter() {
                 >
                   <Link
                     href={link.href}
-                    className="text-gray-400 hover:text-[var(--color-accent-cyan)] transition-colors duration-300"
+                    className="text-gray-300/90 transition hover:text-cyan-200"
                   >
                     {link.name}
                   </Link>
@@ -174,17 +174,17 @@ export default function AnimatedFooter() {
           </motion.div>
 
           {/* Social & Newsletter */}
-          <motion.div variants={itemVariants}>
-            <h4 className="text-lg font-semibold text-[var(--color-text-primary)] mb-6">Connect with Us</h4>
+          <motion.div variants={itemVariants} className="lg:col-span-4 lg:w-full lg:max-w-sm lg:justify-self-end">
+            <h4 className="text-lg font-semibold text-[var(--color-text-primary)] mb-3">Connect with Us</h4>
             
-            <div className="flex space-x-4 mb-6">
+            <div className="flex space-x-4 mb-3">
               {socialLinks.map((social, index) => (
                 <motion.a
                   key={index}
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`p-3 bg-gray-800/50 rounded-lg text-gray-400 ${social.color} transition-all duration-300`}
+                  className="rounded-lg border border-white/10 bg-white/5 p-2 text-gray-300 transition hover:-translate-y-0.5 hover:border-cyan-300/40 hover:bg-white/10 hover:text-cyan-200"
                   whileHover={{ scale: 1.1, y: -2 }}
                   whileTap={{ scale: 0.95 }}
                   aria-label={social.label}
@@ -194,25 +194,25 @@ export default function AnimatedFooter() {
               ))}
             </div>
 
-            <div className="p-6 bg-gradient-to-r from-[var(--color-accent-cyan)]/10 to-[var(--color-accent-purple)]/10 rounded-2xl border border-[var(--color-accent-cyan)]/20">
+            <div className="rounded-2xl border border-cyan-300/20 bg-white/5 backdrop-blur-xl shadow-[0_8px_30px_rgba(0,0,0,0.25)] p-3">
               <h5 className="text-[var(--color-text-primary)] font-medium mb-2">Stay Updated</h5>
-              <p className="text-gray-400 text-sm mb-4">
+              <p className="text-gray-400 text-sm mb-2">
                 Get the latest AI insights and company updates.
               </p>
               
-              <form onSubmit={handleNewsletterSubmit} className="space-y-3">
+              <form onSubmit={handleNewsletterSubmit} className="space-y-2">
                 <input
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Enter your email"
-                  className="w-full px-3 py-2 bg-white/10 border border-white/20 rounded-lg text-white placeholder-gray-400 focus:outline-none focus:border-[var(--color-accent-cyan)]/50 focus:ring-1 focus:ring-[var(--color-accent-cyan)]/30 transition-all duration-300"
+                  className="w-full rounded-lg border border-white/20 bg-black/20 px-3 py-2 text-white placeholder:text-gray-300/70 outline-none transition focus:border-cyan-300/50 focus:bg-black/25 focus:ring-2 focus:ring-cyan-300/20"
                   required
                 />
                 <motion.button
                   type="submit"
                   disabled={isSubscribing || !email}
-                  className="w-full inline-flex items-center justify-center px-4 py-2 bg-gradient-to-r from-[var(--color-accent-cyan)] to-[var(--color-accent-purple)] text-white font-medium text-sm rounded-lg hover:from-[var(--color-accent-cyan)]/80 hover:to-[var(--color-accent-purple)]/80 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300"
+                  className="glass-button w-full inline-flex items-center justify-center px-4 py-1.5 text-sm font-medium disabled:cursor-not-allowed disabled:opacity-50"
                   whileHover={{ scale: 1.02 }}
                   whileTap={{ scale: 0.98 }}
                 >
@@ -257,16 +257,16 @@ export default function AnimatedFooter() {
         {/* Bottom Section */}
         <motion.div
           variants={itemVariants}
-          className="mt-12 pt-8 border-t border-gray-700/50 flex flex-col md:flex-row justify-between items-center"
+          className="mt-6 flex flex-col items-center justify-between border-t border-white/10 pt-4 md:flex-row"
         >
-          <div className="flex items-center text-gray-400 text-sm mb-4 md:mb-0">
+          <div className="flex items-center text-gray-400 text-sm mb-2 md:mb-0">
             <span>© 2025 SKY AI. All rights reserved.</span>
           </div>
 
-          <div className="flex items-center space-x-6 text-sm text-gray-400">
+          <div className="flex items-center space-x-4 text-sm text-gray-400">
             <motion.a
               href="#"
-              className="hover:text-[var(--color-accent-cyan)] transition-colors duration-300"
+              className="text-sm text-gray-400 transition hover:text-cyan-200"
               whileHover={{ y: -2 }}
               transition={{ type: "spring", stiffness: 300 }}
             >
@@ -274,7 +274,7 @@ export default function AnimatedFooter() {
             </motion.a>
             <motion.a
               href="#"
-              className="hover:text-[var(--color-accent-cyan)] transition-colors duration-300"
+              className="text-sm text-gray-400 transition hover:text-cyan-200"
               whileHover={{ y: -2 }}
               transition={{ type: "spring", stiffness: 300 }}
             >
@@ -282,7 +282,7 @@ export default function AnimatedFooter() {
             </motion.a>
             <motion.a
               href="#"
-              className="hover:text-[var(--color-accent-cyan)] transition-colors duration-300"
+              className="text-sm text-gray-400 transition hover:text-cyan-200"
               whileHover={{ y: -2 }}
               transition={{ type: "spring", stiffness: 300 }}
             >

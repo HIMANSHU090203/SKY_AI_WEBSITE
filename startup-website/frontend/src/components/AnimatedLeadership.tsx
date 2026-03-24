@@ -120,7 +120,7 @@ export default function AnimatedLeadership() {
         {/* Section Header */}
         <motion.div variants={itemVariants} className="text-center mb-20">
           <motion.div
-            className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-blue-500/20 to-purple-500/20 border border-blue-500/30 rounded-full text-blue-400 text-sm font-medium mb-8 backdrop-blur-sm"
+            className="glass-chip inline-flex items-center px-4 py-2 rounded-full text-sm font-medium mb-8"
             whileHover={{ scale: 1.05 }}
             transition={{ type: "spring", stiffness: 300 }}
           >
@@ -176,7 +176,7 @@ export default function AnimatedLeadership() {
                   {member.expertise.map((skill, skillIndex) => (
                     <span
                       key={skillIndex}
-                      className="px-3 py-1 bg-gradient-to-r from-[var(--color-accent-cyan)]/20 to-[var(--color-accent-purple)]/20 border border-[var(--color-accent-cyan)]/30 rounded-full text-[var(--color-accent-cyan)] text-sm"
+                      className="glass-chip px-3 py-1 rounded-full text-sm"
                     >
                       {skill}
                     </span>
@@ -189,7 +189,7 @@ export default function AnimatedLeadership() {
                     href={member.social.linkedin}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-2 bg-gray-800/50 rounded-lg hover:bg-[var(--color-accent-cyan)]/20 transition-colors duration-300"
+                    className="rounded-lg border border-white/10 bg-white/5 p-2 text-gray-300 transition hover:-translate-y-0.5 hover:border-cyan-300/40 hover:bg-white/10 hover:text-cyan-200"
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.95 }}
                   >
@@ -197,7 +197,7 @@ export default function AnimatedLeadership() {
                   </motion.a>
                   <motion.a
                     href={`mailto:${member.social.email}`}
-                    className="p-2 bg-gray-800/50 rounded-lg hover:bg-[var(--color-accent-cyan)]/20 transition-colors duration-300"
+                    className="rounded-lg border border-white/10 bg-white/5 p-2 text-gray-300 transition hover:-translate-y-0.5 hover:border-cyan-300/40 hover:bg-white/10 hover:text-cyan-200"
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.95 }}
                   >
@@ -207,7 +207,7 @@ export default function AnimatedLeadership() {
                     href={member.social.github}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="p-2 bg-gray-800/50 rounded-lg hover:bg-[var(--color-accent-cyan)]/20 transition-colors duration-300"
+                    className="rounded-lg border border-white/10 bg-white/5 p-2 text-gray-300 transition hover:-translate-y-0.5 hover:border-cyan-300/40 hover:bg-white/10 hover:text-cyan-200"
                     whileHover={{ scale: 1.1 }}
                     whileTap={{ scale: 0.95 }}
                   >
@@ -237,7 +237,7 @@ export default function AnimatedLeadership() {
               {["Innovation", "Collaboration", "Excellence", "Growth", "Impact"].map((value, index) => (
                 <motion.span
                   key={index}
-                  className="px-4 py-2 bg-gradient-to-r from-[var(--color-accent-cyan)]/20 to-[var(--color-accent-purple)]/20 border border-[var(--color-accent-cyan)]/30 rounded-full text-[var(--color-accent-cyan)] text-sm font-medium"
+                  className="glass-chip px-4 py-2 rounded-full text-sm font-medium"
                   whileHover={{ scale: 1.05 }}
                   transition={{ type: "spring", stiffness: 300 }}
                 >

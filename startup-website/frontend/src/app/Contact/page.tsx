@@ -103,7 +103,7 @@ export default function ContactPage() {
             transition={{ duration: 0.8 }}
           >
             <motion.div
-              className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-blue-500/20 to-purple-500/20 border border-blue-500/30 rounded-full text-blue-400 text-sm font-medium mb-8 backdrop-blur-sm"
+              className="glass-chip inline-flex items-center px-4 py-2 rounded-full text-sm font-medium mb-8"
               whileHover={{ scale: 1.05 }}
               transition={{ type: "spring", stiffness: 300 }}
             >
@@ -155,7 +155,7 @@ export default function ContactPage() {
                         value={formData.name}
                         onChange={handleChange}
                         required
-                        className="w-full px-4 py-3 bg-gray-800/50 border border-gray-600/50 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
+                        className="w-full rounded-lg border border-white/20 bg-black/20 px-4 py-3 text-white placeholder:text-gray-300/70 outline-none transition focus:border-cyan-300/50 focus:bg-black/25 focus:ring-2 focus:ring-cyan-300/20"
                         placeholder="Your name"
                       />
                     </motion.div>
@@ -174,7 +174,7 @@ export default function ContactPage() {
                         value={formData.email}
                         onChange={handleChange}
                         required
-                        className="w-full px-4 py-3 bg-gray-800/50 border border-gray-600/50 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
+                        className="w-full rounded-lg border border-white/20 bg-black/20 px-4 py-3 text-white placeholder:text-gray-300/70 outline-none transition focus:border-cyan-300/50 focus:bg-black/25 focus:ring-2 focus:ring-cyan-300/20"
                         placeholder="your@email.com"
                       />
                     </motion.div>
@@ -194,7 +194,7 @@ export default function ContactPage() {
                       value={formData.subject}
                       onChange={handleChange}
                       required
-                      className="w-full px-4 py-3 bg-gray-800/50 border border-gray-600/50 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
+                      className="w-full rounded-lg border border-white/20 bg-black/20 px-4 py-3 text-white placeholder:text-gray-300/70 outline-none transition focus:border-cyan-300/50 focus:bg-black/25 focus:ring-2 focus:ring-cyan-300/20"
                       placeholder="What's this about?"
                     />
                   </motion.div>
@@ -213,14 +213,14 @@ export default function ContactPage() {
                       onChange={handleChange}
                       rows={5}
                       required
-                      className="w-full px-4 py-3 bg-gray-800/50 border border-gray-600/50 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300 resize-none"
+                      className="w-full rounded-lg border border-white/20 bg-black/20 px-4 py-3 text-white placeholder:text-gray-300/70 outline-none transition focus:border-cyan-300/50 focus:bg-black/25 focus:ring-2 focus:ring-cyan-300/20 resize-none"
                       placeholder="Tell us about your project..."
                     ></textarea>
                   </motion.div>
 
                   <motion.button
                     type="submit"
-                    className="w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white px-6 py-4 rounded-lg font-semibold hover:from-blue-600 hover:to-purple-700 transition-all duration-300 shadow-lg shadow-blue-500/25 hover:shadow-blue-500/40 flex items-center justify-center"
+                    className="glass-button w-full px-6 py-4 font-semibold flex items-center justify-center"
                     whileHover={{ scale: 1.02, y: -2 }}
                     whileTap={{ scale: 0.98 }}
                     disabled={status === "loading"}
@@ -300,7 +300,7 @@ export default function ContactPage() {
                       href={social.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className={`p-3 bg-gray-800/50 rounded-lg text-gray-400 ${social.color} transition-all duration-300`}
+                      className={`rounded-lg border border-white/10 bg-white/5 p-3 text-gray-300 transition hover:-translate-y-0.5 hover:border-cyan-300/40 hover:bg-white/10 hover:text-cyan-200 ${social.color}`}
                       whileHover={{ scale: 1.1, y: -2 }}
                       whileTap={{ scale: 0.95 }}
                       aria-label={social.label}

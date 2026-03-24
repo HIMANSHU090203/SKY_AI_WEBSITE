@@ -130,7 +130,7 @@ export default function BlogsPage() {
             transition={{ duration: 0.8 }}
           >
             <motion.div
-              className="inline-flex items-center px-4 py-2 bg-gradient-to-r from-blue-500/20 to-purple-500/20 border border-blue-500/30 rounded-full text-blue-400 text-sm font-medium mb-8 backdrop-blur-sm"
+              className="glass-chip inline-flex items-center px-4 py-2 rounded-full text-sm font-medium mb-8"
               whileHover={{ scale: 1.05 }}
               transition={{ type: "spring", stiffness: 300 }}
             >
@@ -171,7 +171,7 @@ export default function BlogsPage() {
                     placeholder="Search articles..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="w-full pl-12 pr-4 py-3 bg-gray-800/50 border border-gray-600/50 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
+                    className="w-full rounded-lg border border-white/20 bg-black/20 py-3 pl-12 pr-4 text-white placeholder:text-gray-300/70 outline-none transition focus:border-cyan-300/50 focus:bg-black/25 focus:ring-2 focus:ring-cyan-300/20"
                   />
                 </div>
               </div>
@@ -184,8 +184,8 @@ export default function BlogsPage() {
                     onClick={() => setSelectedCategory(category)}
                     className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 ${
                       selectedCategory === category
-                        ? "bg-gradient-to-r from-blue-500 to-purple-600 text-white"
-                        : "bg-gray-800/50 text-gray-300 hover:bg-gray-700/50"
+                        ? "glass-chip text-white shadow-lg shadow-cyan-400/20"
+                        : "glass-chip-muted"
                     }`}
                     whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
@@ -224,7 +224,7 @@ export default function BlogsPage() {
                   {/* Content */}
                   <div className="p-6">
                     <div className="flex items-center gap-2 mb-3">
-                      <span className="px-2 py-1 bg-gradient-to-r from-blue-500/20 to-purple-500/20 border border-blue-500/30 rounded text-blue-400 text-xs font-medium">
+                      <span className="glass-chip px-2 py-1 rounded text-xs font-medium">
                         {blog.category}
                       </span>
                     </div>
@@ -242,7 +242,7 @@ export default function BlogsPage() {
                       {blog.tags.map((tag) => (
                         <span
                           key={tag}
-                          className="px-2 py-1 bg-gray-800/50 rounded text-gray-400 text-xs"
+                          className="glass-chip-muted px-2 py-1 rounded text-xs"
                         >
                           {tag}
                         </span>
@@ -304,14 +304,14 @@ export default function BlogsPage() {
                 placeholder="Enter your email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="flex-1 px-4 py-3 bg-gray-800/50 border border-gray-600/50 rounded-lg text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all duration-300"
+                className="flex-1 rounded-lg border border-white/20 bg-black/20 px-4 py-3 text-white placeholder:text-gray-300/70 outline-none transition focus:border-cyan-300/50 focus:bg-black/25 focus:ring-2 focus:ring-cyan-300/20"
                 required
                 disabled={isSubscribing}
               />
               <motion.button
                 type="submit"
                 disabled={isSubscribing || !email}
-                className="px-6 py-3 bg-gradient-to-r from-blue-500 to-purple-600 text-white font-semibold rounded-lg hover:from-blue-600 hover:to-purple-700 disabled:opacity-50 disabled:cursor-not-allowed transition-all duration-300"
+                className="glass-button px-6 py-3 font-semibold disabled:opacity-50 disabled:cursor-not-allowed"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
               >

@@ -71,7 +71,7 @@ export default function AdminLoginPage() {
 
         <button
           type="submit"
-          className="w-full bg-sky-600 hover:bg-sky-700 transition-colors py-2 rounded font-semibold hover:cursor-pointer"
+          className="glass-button w-full py-2 font-semibold hover:cursor-pointer"
         >
           Login
         </button>

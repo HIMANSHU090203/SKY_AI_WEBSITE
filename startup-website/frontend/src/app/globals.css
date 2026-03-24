@@ -47,41 +47,60 @@ body {
 
 /* Enhanced Glassmorphism Styles - High Visibility */
 .glassmorphic-panel {
-  backdrop-filter: blur(15px);
-  background: rgba(15, 23, 42, 0.85);
-  border: 2px solid rgba(0, 245, 255, 0.4);
+  backdrop-filter: blur(12px);
+  background: rgba(2, 6, 23, 0.35);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 20px;
   box-shadow: 
-    0 20px 60px rgba(0, 0, 0, 0.6),
-    0 0 0 1px rgba(255, 255, 255, 0.1),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    0 8px 30px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
 .glassmorphic-card {
   background: linear-gradient(135deg, 
-    rgba(15, 23, 42, 0.9) 0%, 
-    rgba(30, 41, 59, 0.8) 50%,
-    rgba(15, 23, 42, 0.9) 100%);
-  backdrop-filter: blur(25px);
-  border: 2px solid rgba(0, 245, 255, 0.3);
+    rgba(255, 255, 255, 0.05) 0%, 
+    rgba(255, 255, 255, 0.03) 50%,
+    rgba(255, 255, 255, 0.05) 100%);
+  backdrop-filter: blur(18px);
+  border: 1px solid rgba(103, 232, 249, 0.2);
   box-shadow: 
-    0 15px 40px rgba(0, 0, 0, 0.5),
-    0 0 0 1px rgba(255, 255, 255, 0.1),
-    inset 0 1px 0 rgba(255, 255, 255, 0.15);
+    0 8px 30px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .glassmorphic-card:hover {
   transform: translateY(-8px) scale(1.02);
   box-shadow: 
-    0 25px 60px rgba(0, 245, 255, 0.2),
-    0 0 0 1px rgba(0, 245, 255, 0.5),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2);
-  border-color: rgba(0, 245, 255, 0.6);
+    0 12px 35px rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(103, 232, 249, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  border-color: rgba(103, 232, 249, 0.35);
   background: linear-gradient(135deg, 
-    rgba(15, 23, 42, 0.95) 0%, 
-    rgba(30, 41, 59, 0.9) 50%,
-    rgba(15, 23, 42, 0.95) 100%);
+    rgba(255, 255, 255, 0.08) 0%, 
+    rgba(255, 255, 255, 0.05) 50%,
+    rgba(255, 255, 255, 0.08) 100%);
+}
+
+/* Shared chip/pill styles for consistent transparent UI tokens */
+.glass-chip {
+  background: linear-gradient(135deg, rgba(34, 211, 238, 0.16), rgba(139, 92, 246, 0.16));
+  border: 1px solid rgba(103, 232, 249, 0.3);
+  color: rgb(165, 243, 252);
+  backdrop-filter: blur(10px);
+}
+
+.glass-chip-muted {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  color: rgba(209, 213, 219, 0.95);
+  backdrop-filter: blur(10px);
+}
+
+.glass-chip-muted:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(103, 232, 249, 0.35);
+  color: rgb(165, 243, 252);
 }
 
 /* Enhanced Button Styles - High Visibility */
@@ -138,8 +157,8 @@ body {
 
 /* Enhanced Button Variants - High Visibility */
 .enhanced-button {
-  background: linear-gradient(135deg, var(--color-accent-cyan), var(--color-accent-purple));
-  border: 2px solid rgba(0, 245, 255, 0.6);
+  background: linear-gradient(135deg, rgba(34, 211, 238, 0.8), rgba(139, 92, 246, 0.8));
+  border: 1px solid rgba(103, 232, 249, 0.35);
   border-radius: 16px;
   padding: 14px 28px;
   color: var(--color-text-primary);
@@ -147,10 +166,11 @@ body {
   position: relative;
   overflow: hidden;
   transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
   box-shadow: 
-    0 10px 30px rgba(0, 245, 255, 0.4),
-    0 0 0 1px rgba(255, 255, 255, 0.15),
-    inset 0 1px 0 rgba(255, 255, 255, 0.25);
+    0 8px 24px rgba(0, 0, 0, 0.25),
+    0 0 0 1px rgba(255, 255, 255, 0.08),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
   text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
 }
 
@@ -175,10 +195,39 @@ body {
 .enhanced-button:hover {
   transform: translateY(-3px) scale(1.05);
   box-shadow: 
-    0 20px 40px rgba(0, 245, 255, 0.5),
-    0 0 0 1px rgba(255, 255, 255, 0.25),
-    inset 0 1px 0 rgba(255, 255, 255, 0.35);
-  border-color: rgba(0, 245, 255, 0.9);
+    0 12px 30px rgba(0, 0, 0, 0.3),
+    0 0 0 1px rgba(103, 232, 249, 0.35),
+    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  border-color: rgba(103, 232, 249, 0.55);
+}
+
+.glass-button {
+  background: linear-gradient(135deg, rgba(34, 211, 238, 0.8), rgba(139, 92, 246, 0.8));
+  border: 1px solid rgba(103, 232, 249, 0.35);
+  color: #fff;
+  border-radius: 0.75rem;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+}
+
+.glass-button:hover {
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+  border-color: rgba(103, 232, 249, 0.55);
+}
+
+.glass-button-danger {
+  background: linear-gradient(135deg, rgba(239, 68, 68, 0.75), rgba(190, 24, 93, 0.75));
+  border: 1px solid rgba(248, 113, 113, 0.35);
+  color: #fff;
+  border-radius: 0.5rem;
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+.glass-button-danger:hover {
+  border-color: rgba(252, 165, 165, 0.55);
+  box-shadow: 0 10px 24px rgba(127, 29, 29, 0.35);
 }
 
 /* Dark theme autofill fix for all inputs and textareas */
@@ -361,29 +410,28 @@ html {
 
 .high-visibility-card {
   background: linear-gradient(135deg, 
-    rgba(15, 23, 42, 0.95) 0%, 
-    rgba(30, 41, 59, 0.9) 50%,
-    rgba(15, 23, 42, 0.95) 100%);
-  backdrop-filter: blur(30px);
-  border: 2px solid rgba(0, 245, 255, 0.4);
+    rgba(255, 255, 255, 0.07) 0%, 
+    rgba(255, 255, 255, 0.04) 50%,
+    rgba(255, 255, 255, 0.07) 100%);
+  backdrop-filter: blur(18px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
   border-radius: 20px;
   box-shadow: 
-    0 25px 50px rgba(0, 0, 0, 0.7),
-    0 0 0 1px rgba(255, 255, 255, 0.15),
-    inset 0 1px 0 rgba(255, 255, 255, 0.2);
+    0 12px 35px rgba(0, 0, 0, 0.3),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
 }
 
 .high-visibility-section {
   background: linear-gradient(135deg, 
-    rgba(0, 0, 0, 0.8) 0%, 
-    rgba(15, 23, 42, 0.9) 50%,
-    rgba(0, 0, 0, 0.8) 100%);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(0, 245, 255, 0.2);
+    rgba(2, 6, 23, 0.35) 0%, 
+    rgba(15, 23, 42, 0.28) 50%,
+    rgba(2, 6, 23, 0.35) 100%);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 24px;
   box-shadow: 
-    0 20px 60px rgba(0, 0, 0, 0.6),
-    inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    0 8px 30px rgba(0, 0, 0, 0.25),
+    inset 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
 /* Enhanced Form Input Visibility */
